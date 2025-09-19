@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FiveSpace World | Premium Corporate Travel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: #d9d9d9;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        /* Header & Navigation */
+        header {
+            background-color: rgba(0, 0, 0, 0.85);
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo h1 {
+            color: #D4AF37;
+            font-weight: 600;
+            font-size: 28px;
+        }
+        
+        .logo span {
+            color: #fff;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 30px;
+        }
+        
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav ul li a:hover {
+            color: #D4AF37;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('rumioniconicgrey.jpg') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: #fff;
+            padding-top: 80px;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h2 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            color: #eee;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: #D4AF37;
+            color: #000;
+            padding: 12px 30px;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #c19b2e;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Services Section */
+        .services {
+            padding: 80px 0;
+            background-color: #fff;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: #333;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 15px;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: #D4AF37;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .service-card {
+            background-color: #f8f8f8;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .service-img {
+            height: 200px;
+            background-color: #444;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #D4AF37;
+            font-size: 3rem;
+        }
+        
+        .service-content {
+            padding: 20px;
+        }
+        
+        .service-content h3 {
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        /* Car Showcase */
+        .car-showcase {
+            padding: 80px 0;
+            background-color: #d9d9d9;
+        }
+        
+        .car-content {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .car-info {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+        }
+        
+        .car-image {
+            flex: 1;
+            min-width: 300px;
+            height: 300px;
+            background: url('rumioniconicgrey.jpg') no-repeat center center/cover;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Booking Form */
+        .booking {
+            padding: 80px 0;
+            background-color: #fff;
+        }
+        
+        .form-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #f8f8f8;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1rem;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #222;
+            color: #fff;
+            padding: 40px 0 20px;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 30px;
+        }
+        
+        .footer-section h3 {
+            color: #D4AF37;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            margin-top: 20px;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+            }
+            
+            nav ul {
+                margin-top: 20px;
+            }
+            
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <h1>FiveSpace<span>World</span></h1>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#fleet">Our Fleet</a></li>
+                    <li><a href="#booking">Book Now</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container hero-content">
+            <h2>FiveSpace World Corporate Travel</h2>
+            <p>Experience premium corporate transportation with our luxurious Toyota Rumion fleet in iconic grey. Professional, reliable, and stylish.</p>
+            <a href="#booking" class="btn">Reserve Your Ride</a>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Corporate Services</h2>
+            </div>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-img">✈️</div>
+                    <div class="service-content">
+                        <h3>Airport Transfers</h3>
+                        <p>Punctual and comfortable airport transportation services for executives and corporate teams with meet-and-greet service.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-img">🏢</div>
+                    <div class="service-content">
+                        <h3>Corporate Events</h3>
+                        <p>Elegant transportation solutions for conferences, meetings, and corporate gatherings with professional chauffeurs.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-img">🌆</div>
+                    <div class="service-content">
+                        <h3>City Tours</h3>
+                        <p>Professional guided tours for visiting clients and business partners with customized itineraries.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Car Showcase -->
+    <section class="car-showcase" id="fleet">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Premium Fleet</h2>
+            </div>
+            <div class="car-content">
+                <div class="car-info">
+                    <h3>Toyota Rumion - Iconic Grey</h3>
+                    <p>Experience the perfect blend of style, comfort, and performance with our flagship Toyota Rumion in iconic grey. Designed for corporate travel excellence, our vehicles offer:</p>
+                    <ul>
+                        <li>Spacious and luxurious interior with premium seating</li>
+                        <li>Advanced safety features for peace of mind</li>
+                        <li>Climate control system for optimal comfort</li>
+                        <li>Complimentary WiFi and refreshments</li>
+                        <li>Professional, trained chauffeurs</li>
+                        <li>Impeccable cleanliness and maintenance</li>
+                    </ul>
+                    <p>Our Toyota Rumion fleet represents the perfect combination of reliability, comfort, and professional appearance for all your corporate travel needs.</p>
+                </div>
+                <div class="car-image">
+                    <!-- Toyota Rumion image will appear here -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Form -->
+    <section class="booking" id="booking">
+        <div class="container">
+            <div class="section-title">
+                <h2>Book Your Corporate Transport</h2>
+            </div>
+            <div class="form-container">
+                <form name="booking-form" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+                    <input type="hidden" name="form-name" value="booking-form">
+                    <p class="hidden">
+                        <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+                    </p>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Full Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="company">Company Name</label>
+                            <input type="text" id="company" name="company" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="pickup">Pickup Location</label>
+                            <input type="text" id="pickup" name="pickup" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="destination">Destination</label>
+                            <input type="text" id="destination" name="destination" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="date">Pickup Date</label>
+                            <input type="date" id="date" name="date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="time">Pickup Time</label>
+                            <input type="time" id="time" name="time" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="passengers">Number of Passengers</label>
+                        <select id="passengers" name="passengers" required>
+                            <option value="">Select...</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5+</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Special Requirements</label>
+                        <textarea id="message" name="message" rows="4" placeholder="Any special requests or additional information..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn">Submit Booking Request</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container footer-content">
+            <div class="footer-section">
+                <h3>FiveSpace World</h3>
+                <p>Premium corporate travel and transportation services with style and reliability. Experience the difference with our Toyota Rumion fleet.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>📱 +1 (555) 123-4567</p>
+                <p>✉️ info@fivespaceworld.com</p>
+                <p>🏢 123 Corporate Avenue, Business District</p>
+            </div>
+            <div class="footer-section">
+                <h3>Operating Hours</h3>
+                <p>Monday - Friday: 24/7</p>
+                <p>Weekends: By appointment</p>
+                <p>Holidays: Available with advance booking</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 FiveSpace World Corporate Travel. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
