@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pricing | FiveSpace World Corporate Travel</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="https://tourc.netlify.app/Logo.png" type="image/png">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Header & Navigation - Matching your main site */
+        header {
+            background-color: rgba(0, 0, 0, 0.9);
+            padding: 12px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo-img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        
+        .logo h1 {
+            color: #D4AF37;
+            font-weight: 700;
+            font-size: 22px;
+            letter-spacing: 0.5px;
+        }
+        
+        .logo span {
+            color: #fff;
+        }
+        
+        /* Desktop Navigation */
+        .desktop-nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        .desktop-nav ul li {
+            margin-left: 20px;
+        }
+        
+        .desktop-nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            transition: all 0.3s;
+            padding: 6px 4px;
+            position: relative;
+        }
+        
+        .desktop-nav ul li a:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: #D4AF37;
+            left: 0;
+            bottom: 0;
+            transition: width 0.3s;
+        }
+        
+        .desktop-nav ul li a:hover {
+            color: #D4AF37;
+        }
+        
+        .desktop-nav ul li a:hover:after {
+            width: 100%;
+        }
+        
+        /* Mobile Navigation */
+        .mobile-nav-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+        
+        .mobile-nav-toggle span {
+            width: 25px;
+            height: 3px;
+            background: #D4AF37;
+            margin: 3px 0;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+        
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 70%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.95);
+            padding: 100px 30px 30px;
+            z-index: 999;
+            transition: right 0.4s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .mobile-nav.active {
+            right: 0;
+        }
+        
+        .mobile-nav ul {
+            list-style: none;
+        }
+        
+        .mobile-nav ul li {
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .mobile-nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: 600;
+            padding: 10px 15px;
+            display: block;
+            transition: color 0.3s;
+        }
+        
+        .mobile-nav ul li a:hover {
+            color: #D4AF37;
+        }
+        
+        /* Hamburger Animation */
+        .mobile-nav-toggle.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        
+        .mobile-nav-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .mobile-nav-toggle.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+        
+        /* Page Header */
+        .page-header {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://tourc.netlify.app/rumioniconicgrey.jpg') no-repeat center center/cover;
+            height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+            margin-top: 70px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .page-header-content h2 {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+        
+        .page-header-content p {
+            font-size: 1.1rem;
+            color: #eee;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        /* Pricing Sections */
+        .pricing-section {
+            background: #fff;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            margin: 30px 0;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .section-header h3 {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 10px;
+        }
+        
+        .section-header h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background-color: #D4AF37;
+        }
+        
+        .section-header p {
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 0 10px;
+        }
+        
+        /* Pricing Tables */
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .pricing-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+        }
+        
+        .pricing-table th, .pricing-table td {
+            padding: 12px 10px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .pricing-table th {
+            background-color: #f8f8f8;
+            color: #333;
+            font-weight: 600;
+            font-size: 15px;
+        }
+        
+        .pricing-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .pricing-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        .pricing-table .highlight {
+            background-color: rgba(212, 175, 55, 0.1);
+            font-weight: 600;
+        }
+        
+        .price {
+            color: #D4AF37;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+        
+        /* Pricing Cards */
+        .pricing-cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 25px;
+        }
+        
+        .pricing-card {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            flex: 1;
+            min-width: 250px;
+            max-width: 350px;
+            border: 1px solid #eee;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .pricing-card h4 {
+            color: #333;
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .pricing-card .price-tag {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        
+        .pricing-card .amount {
+            font-size: 1.8rem;
+            color: #D4AF37;
+            font-weight: 700;
+        }
+        
+        .pricing-card .duration {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .pricing-card ul {
+            list-style: none;
+            margin-bottom: 20px;
+        }
+        
+        .pricing-card ul li {
+            margin-bottom: 8px;
+            padding-left: 22px;
+            position: relative;
+            font-size: 0.95rem;
+        }
+        
+        .pricing-card ul li:before {
+            content: "✓";
+            color: #D4AF37;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .btn {
+            display: block;
+            background-color: #D4AF37;
+            color: #000;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            width: 100%;
+        }
+        
+        .btn:hover {
+            background-color: #c19b2e;
+            transform: translateY(-2px);
+        }
+        
+        /* Notes Section */
+        .notes {
+            background: #f8f8f8;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 25px;
+            border-left: 4px solid #D4AF37;
+        }
+        
+        .notes h4 {
+            color: #333;
+            margin-bottom: 12px;
+            font-size: 1.2rem;
+        }
+        
+        .notes ul {
+            padding-left: 18px;
+        }
+        
+        .notes ul li {
+            margin-bottom: 8px;
+            color: #555;
+            font-size: 0.95rem;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #222;
+            color: #fff;
+            padding: 40px 0 20px;
+            margin-top: 40px;
+        }
+        
+        .footer-content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            margin-bottom: 25px;
+        }
+        
+        .footer-section h3 {
+            color: #D4AF37;
+            margin-bottom: 18px;
+            font-size: 1.4rem;
+            position: relative;
+            padding-bottom: 8px;
+        }
+        
+        .footer-section h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: #D4AF37;
+        }
+        
+        .footer-section p, .footer-section li {
+            margin-bottom: 10px;
+            color: #ccc;
+            font-size: 0.95rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 8px;
+        }
+        
+        .footer-links a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+        }
+        
+        .footer-links a:hover {
+            color: #D4AF37;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #444;
+            margin-top: 15px;
+            color: #999;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 900px) {
+            .pricing-cards {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .pricing-card {
+                width: 100%;
+                max-width: 100%;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .desktop-nav {
+                display: none;
+            }
+            
+            .mobile-nav-toggle {
+                display: flex;
+            }
+            
+            .logo h1 {
+                font-size: 20px;
+            }
+            
+            .page-header {
+                height: 220px;
+                margin-top: 60px;
+            }
+            
+            .page-header-content h2 {
+                font-size: 1.8rem;
+            }
+            
+            .page-header-content p {
+                font-size: 1rem;
+            }
+            
+            .pricing-section {
+                padding: 20px 15px;
+            }
+            
+            .section-header h3 {
+                font-size: 1.6rem;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+            }
+            
+            .footer-section {
+                margin-bottom: 25px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .logo h1 {
+                font-size: 18px;
+            }
+            
+            .logo-img {
+                height: 35px;
+                margin-right: 8px;
+            }
+            
+            .page-header {
+                height: 200px;
+            }
+            
+            .page-header-content h2 {
+                font-size: 1.6rem;
+            }
+            
+            .section-header h3 {
+                font-size: 1.4rem;
+            }
+            
+            .pricing-table th, .pricing-table td {
+                padding: 10px 8px;
+                font-size: 0.9rem;
+            }
+            
+            .pricing-card .amount {
+                font-size: 1.6rem;
+            }
+            
+            .pricing-card {
+                padding: 15px;
+            }
+            
+            .btn {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+            
+            .mobile-nav {
+                width: 80%;
+            }
+            
+            .mobile-nav ul li a {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <img src="https://tourc.netlify.app/Logo.png" alt="FiveSpace World Logo" class="logo-img">
+                <h1>FiveSpace<span>World</span></h1>
+            </div>
+            
+            <!-- Desktop Navigation -->
+            <nav class="desktop-nav">
+                <ul>
+                    <li><a href="https://tourc.netlify.app">Home</a></li>
+                    <li><a href="https://tourc.netlify.app/#services">Services</a></li>
+                    <li><a href="https://tourc.netlify.app/#fleet">Our Fleet</a></li>
+                    <li><a href="https://tourc.netlify.app/#booking">Book Now</a></li>
+                    <li><a href="https://tourc.netlify.app/#contact">Contact</a></li>
+                </ul>
+            </nav>
+            
+            <!-- Mobile Navigation Toggle -->
+            <div class="mobile-nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <!-- Mobile Navigation -->
+        <nav class="mobile-nav">
+            <ul>
+                <li><a href="https://tourc.netlify.app">Home</a></li>
+                <li><a href="https://tourc.netlify.app/#services">Services</a></li>
+                <li><a href="https://tourc.netlify.app/#fleet">Our Fleet</a></li>
+                <li><a href="https://tourc.netlify.app/#booking">Book Now</a></li>
+                <li><a href="https://tourc.netlify.app/#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Page Header -->
+    <div class="container">
+        <div class="page-header">
+            <div class="page-header-content">
+                <h2>Transparent Pricing</h2>
+                <p>Experience premium corporate travel with our Toyota Rumion CNG fleet. No hidden charges.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Airport Transfer Packages -->
+    <div class="container">
+        <div class="pricing-section">
+            <div class="section-header">
+                <h3>Airport Transfer Packages</h3>
+                <p>Round trip service with meet & greet, 60 minutes free waiting time, and bottled water</p>
+            </div>
+            
+            <div class="table-container">
+                <table class="pricing-table">
+                    <thead>
+                        <tr>
+                            <th>Zone</th>
+                            <th>Coverage Areas</th>
+                            <th>Distance (Round Trip)</th>
+                            <th>Economy Price</th>
+                            <th>Executive Add-on</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Zone 1</td>
+                            <td>Areas within 10km of airport</td>
+                            <td>60-70 km</td>
+                            <td class="price">₹ 1,600</td>
+                            <td class="price">+ ₹ 300</td>
+                        </tr>
+                        <tr>
+                            <td>Zone 2</td>
+                            <td>Main City, Central Business District</td>
+                            <td>80-100 km</td>
+                            <td class="price">₹ 2,100</td>
+                            <td class="price">+ ₹ 300</td>
+                        </tr>
+                        <tr>
+                            <td>Zone 3</td>
+                            <td>Key Suburbs, IT Corridors</td>
+                            <td>100-120 km</td>
+                            <td class="price">₹ 2,600</td>
+                            <td class="price">+ ₹ 300</td>
+                        </tr>
+                        <tr class="highlight">
+                            <td>Beyond</td>
+                            <td>Extended Areas</td>
+                            <td>120+ km</td>
+                            <td class="price">₹ 2,900</td>
+                            <td class="price">+ ₹ 18/km after 120km</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="notes">
+                <h4>Important Notes:</h4>
+                <ul>
+                    <li>One-Way Transfer Fee: 70% of the round-trip package price</li>
+                    <li>Executive Add-on includes: Wi-Fi, Premium Water</li>
+                    <li>Free waiting time: 60 minutes for domestic, 90 minutes for international arrivals</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+     <!-- Footer -->
+    <footer id="contact">
+        <div class="container footer-content">
+            <div class="footer-section">
+                <h3>FiveSpace World</h3>
+                <p>Premium corporate travel and transportation services with style and reliability. Experience the difference with our Toyota Rumion fleet.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <p>📱 +1 (555) 123-4567</p>
+                <p>✉️ info@fivespaceworld.com</p>
+                <p>🏢 123 Corporate Avenue, Business District</p>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="https://tourc.netlify.app">Home</a></li>
+                    <li><a href="https://tourc.netlify.app/#services">Services</a></li>
+                    <li><a href="https://tourc.netlify.app/#fleet">Our Fleet</a></li>
+                    <li><a href="https://tourc.netlify.app/#booking">Book Now</a></li>
+                    <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                    <li><a href="terms-conditions.html">Terms & Conditions</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2023 FiveSpace World Corporate Travel. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Navigation Toggle
+        const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+        const mobileNav = document.querySelector('.mobile-nav');
+        const body = document.body;
+
+        if (mobileNavToggle) {
+            mobileNavToggle.addEventListener('click', function() {
+                this.classList.toggle('active');
+                mobileNav.classList.toggle('active');
+                body.classList.toggle('no-scroll');
+            });
+        }
+
+        // Close mobile nav when clicking on a link
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav a');
+        mobileNavLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                if (mobileNavToggle) {
+                    mobileNavToggle.classList.remove('active');
+                }
+                if (mobileNav) {
+                    mobileNav.classList.remove('active');
+                }
+                body.classList.remove('no-scroll');
+            });
+        });
+
+        // Simple animation for pricing cards
+        document.addEventListener('DOMContentLoaded', function() {
+            const pricingCards = document.querySelectorAll('.pricing-card');
+            
+            pricingCards.forEach((card, index) => {
+                // Add slight delay for staggered animation
+                setTimeout(() => {
+                    card.style.opacity = '0';
+                    card.style.transform = 'translateY(20px)';
+                    card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+                    
+                    setTimeout(() => {
+                        card.style.opacity = '1';
+                        card.style.transform = 'translateY(0)';
+                    }, 100);
+                }, index * 100);
+            });
+        });
+    </script>
+</body>
+</html>
+
