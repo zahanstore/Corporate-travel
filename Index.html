@@ -926,7 +926,19 @@
                 <form name="booking-form" method="POST" netlify netlify-honeypot="bot-field" data-netlify="true">
                     <input type="hidden" name="form-name" value="booking-form">
                     <p class="hidden"><label>Don't fill this out if you're human: <input name="bot-field" /></label></p>
-                    
+
+                        <!-- 👇 PUT IT RIGHT HERE 👇 -->
+                        <!-- Add this hidden div container for all possible sub-options (Netlify backup) -->
+    <div style="display: none;">
+        <!-- Hidden fields to ensure Netlify captures all possible options -->
+        <input type="hidden" name="airport_type" value="">
+        <input type="hidden" name="event_type" value="">
+        <input type="hidden" name="point_type" value="">
+        <input type="hidden" name="tour_type" value="">
+        <input type="hidden" name="rental_type" value="">
+    </div>
+                    <!-- 👆 PUT IT RIGHT HERE 👆 -->
+   
                     <!-- Personal Information -->
                     <div class="form-section">
                         <h3>Personal Information</h3>
@@ -1096,151 +1108,258 @@
     </footer>
 
   <script>
-        // Mobile Navigation Toggle
-        const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
-        const mobileNav = document.querySelector('.mobile-nav');
-        const body = document.body;
+    // Mobile Navigation Toggle
+    const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+    const mobileNav = document.querySelector('.mobile-nav');
+    const body = document.body;
 
-        mobileNavToggle.addEventListener('click', function() {
-            this.classList.toggle('active');
-            mobileNav.classList.toggle('active');
-            body.classList.toggle('no-scroll');
+    mobileNavToggle.addEventListener('click', function() {
+        this.classList.toggle('active');
+        mobileNav.classList.toggle('active');
+        body.classList.toggle('no-scroll');
+    });
+
+    // Close mobile nav when clicking on a link
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav a');
+    mobileNavLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            mobileNavToggle.classList.remove('active');
+            mobileNav.classList.remove('active');
+            body.classList.remove('no-scroll');
         });
+    });
 
-        // Close mobile nav when clicking on a link
-        const mobileNavLinks = document.querySelectorAll('.mobile-nav a');
-        mobileNavLinks.forEach(link => {
-            link.addEventListener('click', function() {
-                mobileNavToggle.classList.remove('active');
-                mobileNav.classList.remove('active');
-                body.classList.remove('no-scroll');
-            });
-        });
+    // Service Dropdown Functionality
+    const serviceDropdown = document.getElementById('service-type');
+    const suboptionsContainer = document.getElementById('service-suboptions');
 
-        // Service Dropdown Functionality
-        const serviceDropdown = document.getElementById('service-type');
-        const suboptionsContainer = document.getElementById('service-suboptions');
-        
-        // Service sub-options configuration
-        const serviceOptions = {
-            'airport-transfers': {
-                title: 'Airport Transfer Options',
-                name: 'airport_type',
-                options: [
-                    { id: 'airport-oneway', value: 'One Way', label: 'One Way' },
-                    { id: 'airport-roundtrip', value: 'Round Trip', label: 'Round Trip' }
-                ]
-            },
-            'event-transportation': {
-                title: 'Event Type',
-                name: 'event_type',
-                options: [
-                    { id: 'event-corporate', value: 'Corporate Events', label: 'Corporate Events' },
-                    { id: 'event-conference', value: 'Conferences', label: 'Conferences' },
-                    { id: 'event-special', value: 'Special Events', label: 'Special Events' }
-                ]
-            },
-            'executive-car': {
-                title: 'Point to Point Service',
-                name: 'point_type',
-                options: [
-                    { id: 'point-standard', value: 'Standard Service', label: 'Standard Service' },
-                    { id: 'point-premium', value: 'Premium Service', label: 'Premium Service' }
-                ]
-            },
-            'roadshow-tours': {
-                title: 'City Tour Options',
-                name: 'tour_type',
-                options: [
-                    { id: 'tour-halfday', value: 'Half Day Tour', label: 'Half Day Tour (4 hours)' },
-                    { id: 'tour-fullday', value: 'Full Day Tour', label: 'Full Day Tour (8 hours)' },
-                    { id: 'tour-custom', value: 'Custom Tour', label: 'Custom Duration' }
-                ]
-            },
-            'hourly-services': {
-                title: 'Full Day Rental Options',
-                name: 'rental_type',
-                options: [
-                    { id: 'rental-8', value: '8 Hours', label: '8 Hours Package' },
-                    { id: 'rental-12', value: '12 Hours', label: '12 Hours Package' },
-                    { id: 'rental-24', value: '24 Hours', label: '24 Hours Package' }
-                ]
-            }
-        };
-        
-        // Service dropdown change handler
-        if (serviceDropdown && suboptionsContainer) {
-            serviceDropdown.addEventListener('change', function() {
-                const selectedService = this.value;
+    // Service sub-options configuration
+    const serviceOptions = {
+        'airport-transfers': {
+            title: 'Airport Transfer Options',
+            name: 'airport_type',
+            options: [
+                { id: 'airport-oneway', value: 'One Way', label: 'One Way' },
+                { id: 'airport-roundtrip', value: 'Round Trip', label: 'Round Trip' }
+            ]
+        },
+        'event-transportation': {
+            title: 'Event Type',
+            name: 'event_type',
+            options: [
+                { id: 'event-corporate', value: 'Corporate Events', label: 'Corporate Events' },
+                { id: 'event-conference', value: 'Conferences', label: 'Conferences' },
+                { id: 'event-special', value: 'Special Events', label: 'Special Events' }
+            ]
+        },
+        'executive-car': {
+            title: 'Point to Point Service',
+            name: 'point_type',
+            options: [
+                { id: 'point-standard', value: 'Standard Service', label: 'Standard Service' },
+                { id: 'point-premium', value: 'Premium Service', label: 'Premium Service' }
+            ]
+        },
+        'roadshow-tours': {
+            title: 'City Tour Options',
+            name: 'tour_type',
+            options: [
+                { id: 'tour-halfday', value: 'Half Day Tour', label: 'Half Day Tour (4 hours)' },
+                { id: 'tour-fullday', value: 'Full Day Tour', label: 'Full Day Tour (8 hours)' },
+                { id: 'tour-custom', value: 'Custom Tour', label: 'Custom Duration' }
+            ]
+        },
+        'hourly-services': {
+            title: 'Full Day Rental Options',
+            name: 'rental_type',
+            options: [
+                { id: 'rental-8', value: '8 Hours', label: '8 Hours Package' },
+                { id: 'rental-12', value: '12 Hours', label: '12 Hours Package' },
+                { id: 'rental-24', value: '24 Hours', label: '24 Hours Package' }
+            ]
+        }
+    };
+
+    // Service dropdown change handler
+    if (serviceDropdown && suboptionsContainer) {
+        serviceDropdown.addEventListener('change', function() {
+            const selectedService = this.value;
+            
+            // Clear previous sub-options
+            suboptionsContainer.innerHTML = '';
+            suboptionsContainer.classList.remove('active');
+            
+            // Remove any existing hidden fields
+            document.querySelectorAll('input[name="service_subtype"]').forEach(field => field.remove());
+            
+            if (selectedService && serviceOptions[selectedService]) {
+                const serviceConfig = serviceOptions[selectedService];
                 
-                // Clear previous sub-options
-                suboptionsContainer.innerHTML = '';
-                suboptionsContainer.classList.remove('active');
-                
-                if (selectedService && serviceOptions[selectedService]) {
-                    const serviceConfig = serviceOptions[selectedService];
-                    
-                    // Create sub-options HTML
-                    const suboptionsHTML = `
-                        <div class="suboption-group">
-                            <h4>${serviceConfig.title}</h4>
-                            <div class="radio-group">
-                                ${serviceConfig.options.map(option => `
-                                    <div class="radio-item">
-                                        <input type="radio" id="${option.id}" name="${serviceConfig.name}" value="${option.value}" required>
-                                        <label for="${option.id}">${option.label}</label>
-                                    </div>
-                                `).join('')}
-                            </div>
+                // Create sub-options HTML
+                const suboptionsHTML = `
+                    <div class="suboption-group">
+                        <h4>${serviceConfig.title}</h4>
+                        <div class="radio-group">
+                            ${serviceConfig.options.map(option => `
+                                <div class="radio-item">
+                                    <input type="radio" id="${option.id}" name="${serviceConfig.name}" value="${option.value}" required 
+                                           onchange="updateServiceSubtype('${option.value}', '${serviceConfig.name}')">
+                                    <label for="${option.id}">${option.label}</label>
+                                </div>
+                            `).join('')}
                         </div>
-                    `;
-                    
-                    suboptionsContainer.innerHTML = suboptionsHTML;
-                    suboptionsContainer.classList.add('active');
+                    </div>
+                `;
+                
+                suboptionsContainer.innerHTML = suboptionsHTML;
+                suboptionsContainer.classList.add('active');
+                
+                // Add hidden fields to capture the selections for Netlify
+                const serviceTypeInput = document.createElement('input');
+                serviceTypeInput.type = 'hidden';
+                serviceTypeInput.name = 'selected_service_type';
+                serviceTypeInput.value = serviceDropdown.options[serviceDropdown.selectedIndex].text;
+                suboptionsContainer.appendChild(serviceTypeInput);
+                
+                const serviceSubtypeInput = document.createElement('input');
+                serviceSubtypeInput.type = 'hidden';
+                serviceSubtypeInput.name = 'selected_service_subtype';
+                serviceSubtypeInput.id = 'service-subtype-input';
+                suboptionsContainer.appendChild(serviceSubtypeInput);
+                
+                const serviceSubtypeNameInput = document.createElement('input');
+                serviceSubtypeNameInput.type = 'hidden';
+                serviceSubtypeNameInput.name = 'selected_service_subtype_name';
+                serviceSubtypeNameInput.id = 'service-subtype-name-input';
+                suboptionsContainer.appendChild(serviceSubtypeNameInput);
+            }
+        });
+    }
+
+    // Function to update the hidden fields with selected sub-option
+    function updateServiceSubtype(value, name) {
+        const subtypeInput = document.getElementById('service-subtype-input');
+        const subtypeNameInput = document.getElementById('service-subtype-name-input');
+        
+        if (subtypeInput) {
+            subtypeInput.value = value;
+        }
+        if (subtypeNameInput) {
+            subtypeNameInput.value = name;
+        }
+    }
+
+    // Form validation and submission handler
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector('form');
+        
+        // Check if we're on a thank you page
+        if (window.location.search.includes('thankyou=true')) {
+            alert('Thank you for your booking request! We will contact you shortly to confirm your reservation.');
+            window.history.replaceState({}, document.title, window.location.pathname);
+        }
+        
+        if (form) {
+            form.addEventListener('submit', function(e) {
+                // Basic validation for service sub-options
+                const serviceType = document.getElementById('service-type').value;
+                const serviceSubtype = document.getElementById('service-subtype-input')?.value;
+                
+                if (serviceType && !serviceSubtype) {
+                    e.preventDefault();
+                    alert('Please select an option for the chosen service type.');
+                    return false;
                 }
+                
+                // Validate that at least one sub-option is selected
+                if (serviceType) {
+                    const selectedSuboption = document.querySelector(`input[name="${getServiceSubtypeName(serviceType)}"]:checked`);
+                    if (!selectedSuboption) {
+                        e.preventDefault();
+                        alert('Please select an option for the chosen service type.');
+                        return false;
+                    }
+                    
+                    // Ensure hidden field is updated with the actual selected value
+                    const subtypeInput = document.getElementById('service-subtype-input');
+                    if (subtypeInput) {
+                        subtypeInput.value = selectedSuboption.value;
+                    }
+                }
+                
+                // For Netlify forms - allow normal submission
+                console.log('Form submitted with service type:', serviceType);
+                console.log('Form submitted with service subtype:', serviceSubtype);
+                
+                // Optional: Add a small delay to ensure form data is captured
+                setTimeout(function() {
+                    // Netlify will handle the redirect to the thank you page
+                }, 100);
             });
         }
 
-        // Form handling with thank you message
-        document.addEventListener('DOMContentLoaded', function() {
-            const form = document.querySelector('form');
-            
-            // Check if we're on a thank you page
-            if (window.location.search.includes('thankyou=true')) {
-                alert('Thank you for your booking request! We will contact you shortly to confirm your reservation.');
-                window.history.replaceState({}, document.title, window.location.pathname);
-            }
-            
-            if (form) {
-                form.addEventListener('submit', function(e) {
-                    // For Netlify forms, we don't need to prevent default behavior
-                    // The form will be handled by Netlify
-                    // We'll just add a parameter to the URL to show thank you message
-                    setTimeout(function() {
-                        window.location.href = window.location.pathname + '?thankyou=true';
-                    }, 1000);
-                });
-            }
-
-            // Smooth scrolling for navigation links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    
-                    const targetId = this.getAttribute('href');
-                    if (targetId === '#') return;
-                    
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 80,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
             });
         });
-    </script>
+    });
+
+    // Helper function to get service subtype name
+    function getServiceSubtypeName(serviceType) {
+        const serviceConfig = serviceOptions[serviceType];
+        return serviceConfig ? serviceConfig.name : '';
+    }
+
+    // Initialize form state on page load
+    document.addEventListener('DOMContentLoaded', function() {
+        // Check if there's a previously selected service and show its options
+        const serviceDropdown = document.getElementById('service-type');
+        if (serviceDropdown && serviceDropdown.value) {
+            serviceDropdown.dispatchEvent(new Event('change'));
+        }
+        
+        // Add change listeners to all premium add-ons for better tracking
+        const premiumCheckboxes = document.querySelectorAll('input[name="addons[]"]');
+        premiumCheckboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                console.log('Premium add-on changed:', this.value, this.checked);
+            });
+        });
+    });
+
+    // Enhanced form data logging for debugging
+    function logFormData() {
+        const formData = new FormData(document.querySelector('form'));
+        console.log('=== FORM DATA ===');
+        for (let [key, value] of formData.entries()) {
+            console.log(key + ': ' + value);
+        }
+        console.log('=================');
+    }
+
+    // Add event listener to log form data before submission
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector('form');
+        if (form) {
+            form.addEventListener('submit', function() {
+                logFormData();
+            });
+        }
+    });
+</script>
 </body>
 </html>
 
