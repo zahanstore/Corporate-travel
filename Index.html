@@ -607,94 +607,100 @@
                 margin-right: 8px;
             }
 
-            /* Checkbox Group Styling */
-.checkbox-group {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin-top: 10px;
-}
-
-.checkbox-item {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    padding: 15px;
-    border: 1px solid #e0e0e0;
+            /* Service Dropdown Styles */
+.service-dropdown {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #e0e0e0;
     border-radius: 8px;
+    font-size: 1rem;
+    background: white;
+    cursor: pointer;
     transition: all 0.3s ease;
 }
 
-.checkbox-item:hover {
+.service-dropdown:focus {
+    outline: none;
     border-color: #D4AF37;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
 }
 
-.checkbox-item.with-suboptions {
-    background: #f9f9f9;
+/* Suboptions Container */
+.suboptions-container {
+    margin-top: 20px;
+    display: none;
 }
 
-.checkbox-item label {
-    margin: 0;
-    font-weight: 600;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 10px;
+.suboptions-container.active {
+    display: block;
+    animation: fadeIn 0.3s ease;
 }
 
-.checkbox-item input[type="checkbox"] {
-    width: 18px;
-    height: 18px;
-    accent-color: #D4AF37;
+.suboption-group {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    border-left: 4px solid #D4AF37;
 }
 
-/* Suboptions Styling */
-.suboptions {
-    margin-left: 28px;
-    margin-top: 10px;
-    padding: 15px;
-    background: white;
-    border-radius: 6px;
-    border-left: 3px solid #D4AF37;
+.suboption-group h4 {
+    margin-bottom: 15px;
+    color: #333;
+    font-size: 1.1rem;
 }
 
+/* Radio Group Styles */
 .radio-group {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
 }
 
 .radio-item {
     display: flex;
     align-items: center;
     gap: 10px;
+    padding: 10px;
+    background: white;
+    border-radius: 6px;
+    border: 1px solid #e0e0e0;
+    transition: all 0.3s ease;
+}
+
+.radio-item:hover {
+    border-color: #D4AF37;
 }
 
 .radio-item input[type="radio"] {
-    width: 16px;
-    height: 16px;
+    width: 18px;
+    height: 18px;
     accent-color: #D4AF37;
 }
 
 .radio-item label {
-    font-weight: normal;
     margin: 0;
+    font-weight: normal;
+    cursor: pointer;
+    flex: 1;
 }
 
-/* Responsive design */
-@media (min-width: 768px) {
-    .checkbox-group {
-        display: grid;
+/* Animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .radio-group {
         grid-template-columns: 1fr;
-        gap: 15px;
     }
     
-    .radio-group {
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: 15px;
+    .suboption-group {
+        padding: 15px;
     }
 }
+
     </style>
 </head>
 <body>
@@ -841,199 +847,107 @@
     </section>
 
     <!-- Booking Form -->
-    <section class="booking" id="booking">
+<section class="booking" id="booking">
     <div class="container">
         <div class="section-title">
             <h2>Book Your Corporate Transport</h2>
+            <p>Fill out the form below and we'll get back to you within 24 hours</p>
         </div>
         <div class="form-container">
-            <!-- Netlify Form with Thank You Redirect -->
             <form name="booking-form" method="POST" netlify netlify-honeypot="bot-field" data-netlify="true">
                 <input type="hidden" name="form-name" value="booking-form">
-                <p class="hidden">
-                    <label>Don't fill this out if you're human: <input name="bot-field" /></label>
-                </p>
+                <p class="hidden"><label>Don't fill this out if you're human: <input name="bot-field" /></label></p>
                 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="name">Full Name *</label>
-                        <input type="text" id="name" name="name" required>
+                <!-- Personal Information -->
+                <div class="form-section">
+                    <h3>Personal Information</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Full Name *</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="company">Company Name *</label>
+                            <input type="text" id="company" name="company" required>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="company">Company Name *</label>
-                        <input type="text" id="company" name="company" required>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number *</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
                     </div>
                 </div>
                 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="email">Email Address *</label>
-                        <input type="email" id="email" name="email" required>
+                <!-- Trip Details -->
+                <div class="form-section">
+                    <h3>Trip Details</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="pickup">Pickup Location *</label>
+                            <input type="text" id="pickup" name="pickup" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="destination">Destination *</label>
+                            <input type="text" id="destination" name="destination" required>
+                        </div>
                     </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="date">Pickup Date *</label>
+                            <input type="date" id="date" name="date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="time">Pickup Time *</label>
+                            <input type="time" id="time" name="time" required>
+                        </div>
+                    </div>
+                    
                     <div class="form-group">
-                        <label for="phone">Phone Number *</label>
-                        <input type="tel" id="phone" name="phone" required>
+                        <label for="passengers">Number of Passengers *</label>
+                        <select id="passengers" name="passengers" required>
+                            <option value="">Select...</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5+</option>
+                        </select>
                     </div>
                 </div>
                 
-                <div class="form-row">
+                <!-- Services Required Section - Dropdown Version -->
+                <div class="form-section">
+                    <h3>Services Required *</h3>
                     <div class="form-group">
-                        <label for="pickup">Pickup Location *</label>
-                        <input type="text" id="pickup" name="pickup" required>
+                        <label for="service-type">Select Service Type *</label>
+                        <select id="service-type" name="service_type" required class="service-dropdown">
+                            <option value="">Choose a service...</option>
+                            <option value="airport-transfers">Airport Transfers</option>
+                            <option value="corporate-travel">Corporate Travel</option>
+                            <option value="event-transportation">Event Transportation</option>
+                            <option value="executive-car">Executive Car Service</option>
+                            <option value="roadshow-tours">Roadshow & Tours</option>
+                            <option value="hourly-services">Hourly Services</option>
+                        </select>
                     </div>
-                    <div class="form-group">
-                        <label for="destination">Destination *</label>
-                        <input type="text" id="destination" name="destination" required>
+
+                    <!-- Sub-options Container -->
+                    <div id="service-suboptions" class="suboptions-container">
+                        <!-- Sub-options will appear here dynamically -->
                     </div>
                 </div>
                 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="date">Pickup Date *</label>
-                        <input type="date" id="date" name="date" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="time">Pickup Time *</label>
-                        <input type="time" id="time" name="time" required>
-                    </div>
-                </div>
-                
-                <div class="form-group">
-                    <label for="passengers">Number of Passengers *</label>
-                    <select id="passengers" name="passengers" required>
-                        <option value="">Select...</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5+</option>
-                    </select>
-                </div>
-                
-                <!-- Services Required Section -->
-                <div class="form-group">
-                    <label>Services Required *</label>
-                    <div class="checkbox-group">
-                        
-                        <!-- Airport Transfers with Sub-options -->
-                        <div class="checkbox-item with-suboptions">
-                            <input type="checkbox" id="service-airport" name="services[]" value="Airport Transfers" class="main-checkbox">
-                            <label for="service-airport">Airport Transfers</label>
-                            <div class="suboptions" style="display: none;">
-                                <div class="radio-group">
-                                    <div class="radio-item">
-                                        <input type="radio" id="airport-oneway" name="airport_type" value="One Way">
-                                        <label for="airport-oneway">One Way</label>
-                                    </div>
-                                    <div class="radio-item">
-                                        <input type="radio" id="airport-roundtrip" name="airport_type" value="Round Trip">
-                                        <label for="airport-roundtrip">Round Trip</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Corporate Travel with Sub-options -->
-                        <div class="checkbox-item with-suboptions">
-                            <input type="checkbox" id="service-corporate" name="services[]" value="Corporate Travel" class="main-checkbox">
-                            <label for="service-corporate">Corporate Travel</label>
-                            <div class="suboptions" style="display: none;">
-                                <div class="radio-group">
-                                    <div class="radio-item">
-                                        <input type="radio" id="corporate-daily" name="corporate_type" value="Daily Commute">
-                                        <label for="corporate-daily">Daily Commute</label>
-                                    </div>
-                                    <div class="radio-item">
-                                        <input type="radio" id="corporate-meetings" name="corporate_type" value="Business Meetings">
-                                        <label for="corporate-meetings">Business Meetings</label>
-                                    </div>
-                                    <div class="radio-item">
-                                        <input type="radio" id="corporate-client" name="corporate_type" value="Client Transport">
-                                        <label for="corporate-client">Client Transport</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Event Transportation with Sub-options -->
-                        <div class="checkbox-item with-suboptions">
-                            <input type="checkbox" id="service-event" name="services[]" value="Event Transportation" class="main-checkbox">
-                            <label for="service-event">Event Transportation</label>
-                            <div class="suboptions" style="display: none;">
-                                <div class="radio-group">
-                                    <div class="radio-item">
-                                        <input type="radio" id="event-wedding" name="event_type" value="Weddings">
-                                        <label for="event-wedding">Weddings</label>
-                                    </div>
-                                    <div class="radio-item">
-                                        <input type="radio" id="event-conference" name="event_type" value="Conferences">
-                                        <label for="event-conference">Conferences</label>
-                                    </div>
-                                    <div class="radio-item">
-                                        <input type="radio" id="event-special" name="event_type" value="Special Events">
-                                        <label for="event-special">Special Events</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Executive Car Service -->
-                        <div class="checkbox-item">
-                            <input type="checkbox" id="service-executive" name="services[]" value="Executive Car Service">
-                            <label for="service-executive">Executive Car Service</label>
-                        </div>
-                        
-                        <!-- Roadshow & Tours with Sub-options -->
-                        <div class="checkbox-item with-suboptions">
-                            <input type="checkbox" id="service-roadshow" name="services[]" value="Roadshow & Tours" class="main-checkbox">
-                            <label for="service-roadshow">Roadshow & Tours</label>
-                            <div class="suboptions" style="display: none;">
-                                <div class="radio-group">
-                                    <div class="radio-item">
-                                        <input type="radio" id="roadshow-corporate" name="roadshow_type" value="Corporate Roadshows">
-                                        <label for="roadshow-corporate">Corporate Roadshows</label>
-                                    </div>
-                                    <div class="radio-item">
-                                        <input type="radio" id="roadshow-city" name="roadshow_type" value="City Tours">
-                                        <label for="roadshow-city">City Tours</label>
-                                    </div>
-                                    <div class="radio-item">
-                                        <input type="radio" id="roadshow-multi" name="roadshow_type" value="Multi-city Tours">
-                                        <label for="roadshow-multi">Multi-city Tours</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <!-- Hourly Services -->
-                        <div class="checkbox-item with-suboptions">
-                            <input type="checkbox" id="service-hourly" name="services[]" value="Hourly Services" class="main-checkbox">
-                            <label for="service-hourly">Hourly Services</label>
-                            <div class="suboptions" style="display: none;">
-                                <div class="radio-group">
-                                    <div class="radio-item">
-                                        <input type="radio" id="hourly-4" name="hourly_type" value="4 Hours">
-                                        <label for="hourly-4">4 Hours</label>
-                                    </div>
-                                    <div class="radio-item">
-                                        <input type="radio" id="hourly-8" name="hourly_type" value="8 Hours">
-                                        <label for="hourly-8">8 Hours</label>
-                                    </div>
-                                    <div class="radio-item">
-                                        <input type="radio" id="hourly-12" name="hourly_type" value="12 Hours">
-                                        <label for="hourly-12">12 Hours</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                    </div>
-                </div>
-                
-                <!-- Premium Add-ons Section -->
-                <div class="form-group">
-                    <label>Premium Add-ons</label>
-                    <div class="checkbox-group">
+                <!-- Premium Add-ons -->
+                <div class="form-section">
+                    <h3>Premium Add-ons (Optional)</h3>
+                    <div class="premium-addons">
                         <div class="checkbox-item">
                             <input type="checkbox" id="addon-wifi" name="addons[]" value="WiFi Connectivity">
                             <label for="addon-wifi">WiFi Connectivity</label>
@@ -1057,15 +971,19 @@
                     </div>
                 </div>
                 
-                <div class="form-group">
-                    <label for="message">Special Requirements</label>
-                    <textarea id="message" name="message" rows="4" placeholder="Any special requests or additional information..."></textarea>
+                <!-- Special Requirements -->
+                <div class="form-section">
+                    <h3>Additional Information</h3>
+                    <div class="form-group">
+                        <label for="message">Special Requirements</label>
+                        <textarea id="message" name="message" rows="4" placeholder="Any special requests or additional information..."></textarea>
+                    </div>
                 </div>
                 
                 <button type="submit" class="btn">Submit Booking Request</button>
             </form>
         </div>
-    </div>
+    </div>                           
 </section>
     
     <!-- Footer -->
@@ -1151,21 +1069,90 @@
     
 // Toggle sub-options when main checkbox is clicked
 document.addEventListener('DOMContentLoaded', function() {
-    const mainCheckboxes = document.querySelectorAll('.main-checkbox');
+    const serviceDropdown = document.getElementById('service-type');
+    const suboptionsContainer = document.getElementById('service-suboptions');
     
-    mainCheckboxes.forEach(checkbox => {
-        checkbox.addEventListener('change', function() {
-            const suboptions = this.closest('.checkbox-item').querySelector('.suboptions');
-            if (this.checked) {
-                suboptions.style.display = 'block';
-            } else {
-                suboptions.style.display = 'none';
-                // Clear radio buttons when main checkbox is unchecked
-                const radioButtons = suboptions.querySelectorAll('input[type="radio"]');
-                radioButtons.forEach(radio => radio.checked = false);
-            }
-        });
-      }
+    // Service sub-options configuration
+    const serviceOptions = {
+        'airport-transfers': {
+            title: 'Airport Transfer Options',
+            options: [
+                { id: 'airport-oneway', value: 'One Way', label: 'One Way' },
+                { id: 'airport-roundtrip', value: 'Round Trip', label: 'Round Trip' }
+            ]
+        },
+        'corporate-travel': {
+            title: 'Corporate Travel Type',
+            options: [
+                { id: 'corporate-daily', value: 'Daily Commute', label: 'Daily Commute' },
+                { id: 'corporate-meetings', value: 'Business Meetings', label: 'Business Meetings' },
+                { id: 'corporate-client', value: 'Client Transport', label: 'Client Transport' }
+            ]
+        },
+        'event-transportation': {
+            title: 'Event Type',
+            options: [
+                { id: 'event-wedding', value: 'Weddings', label: 'Weddings' },
+                { id: 'event-conference', value: 'Conferences', label: 'Conferences' },
+                { id: 'event-special', value: 'Special Events', label: 'Special Events' }
+            ]
+        },
+        'executive-car': {
+            title: 'Executive Car Service',
+            options: [
+                { id: 'executive-standard', value: 'Standard Executive', label: 'Standard Executive Service' },
+                { id: 'executive-premium', value: 'Premium Executive', label: 'Premium Executive Service' }
+            ]
+        },
+        'roadshow-tours': {
+            title: 'Roadshow & Tours Type',
+            options: [
+                { id: 'roadshow-corporate', value: 'Corporate Roadshows', label: 'Corporate Roadshows' },
+                { id: 'roadshow-city', value: 'City Tours', label: 'City Tours' },
+                { id: 'roadshow-multi', value: 'Multi-city Tours', label: 'Multi-city Tours' }
+            ]
+        },
+        'hourly-services': {
+            title: 'Duration Options',
+            options: [
+                { id: 'hourly-4', value: '4 Hours', label: '4 Hours' },
+                { id: 'hourly-8', value: '8 Hours', label: '8 Hours' },
+                { id: 'hourly-12', value: '12 Hours', label: '12 Hours' },
+                { id: 'hourly-custom', value: 'Custom Hours', label: 'Custom Duration' }
+            ]
+        }
+    };
+    
+    serviceDropdown.addEventListener('change', function() {
+        const selectedService = this.value;
+        
+        // Clear previous sub-options
+        suboptionsContainer.innerHTML = '';
+        suboptionsContainer.classList.remove('active');
+        
+        if (selectedService && serviceOptions[selectedService]) {
+            const serviceConfig = serviceOptions[selectedService];
+            
+            // Create sub-options HTML
+            const suboptionsHTML = `
+                <div class="suboption-group">
+                    <h4>${serviceConfig.title}</h4>
+                    <div class="radio-group">
+                        ${serviceConfig.options.map(option => `
+                            <div class="radio-item">
+                                <input type="radio" id="${option.id}" name="service_subtype" value="${option.value}" required>
+                                <label for="${option.id}">${option.label}</label>
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+            
+            suboptionsContainer.innerHTML = suboptionsHTML;
+            suboptionsContainer.classList.add('active');
+        }
+    });
+});
 
             
             // Smooth scrolling for navigation links
