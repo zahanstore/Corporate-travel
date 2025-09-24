@@ -606,7 +606,95 @@
                 height: 40px;
                 margin-right: 8px;
             }
-        }
+
+            /* Checkbox Group Styling */
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.checkbox-item {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.checkbox-item:hover {
+    border-color: #D4AF37;
+}
+
+.checkbox-item.with-suboptions {
+    background: #f9f9f9;
+}
+
+.checkbox-item label {
+    margin: 0;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.checkbox-item input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #D4AF37;
+}
+
+/* Suboptions Styling */
+.suboptions {
+    margin-left: 28px;
+    margin-top: 10px;
+    padding: 15px;
+    background: white;
+    border-radius: 6px;
+    border-left: 3px solid #D4AF37;
+}
+
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.radio-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.radio-item input[type="radio"] {
+    width: 16px;
+    height: 16px;
+    accent-color: #D4AF37;
+}
+
+.radio-item label {
+    font-weight: normal;
+    margin: 0;
+}
+
+/* Responsive design */
+@media (min-width: 768px) {
+    .checkbox-group {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .radio-group {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+}
     </style>
 </head>
 <body>
@@ -754,85 +842,232 @@
 
     <!-- Booking Form -->
     <section class="booking" id="booking">
-        <div class="container">
-            <div class="section-title">
-                <h2>Book Your Corporate Transport</h2>
-            </div>
-            <div class="form-container">
-                <!-- Netlify Form with Thank You Redirect -->
-                <form name="booking-form" method="POST" netlify netlify-honeypot="bot-field" data-netlify="true">
-                    <input type="hidden" name="form-name" value="booking-form">
-                    <p class="hidden">
-                        <label>Don't fill this out if you're human: <input name="bot-field" /></label>
-                    </p>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="name">Full Name *</label>
-                            <input type="text" id="name" name="name" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="company">Company Name *</label>
-                            <input type="text" id="company" name="company" required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="email">Email Address *</label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="phone">Phone Number *</label>
-                            <input type="tel" id="phone" name="phone" required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="pickup">Pickup Location *</label>
-                            <input type="text" id="pickup" name="pickup" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="destination">Destination *</label>
-                            <input type="text" id="destination" name="destination" required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="date">Pickup Date *</label>
-                            <input type="date" id="date" name="date" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="time">Pickup Time *</label>
-                            <input type="time" id="time" name="time" required>
-                        </div>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="passengers">Number of Passengers *</label>
-                        <select id="passengers" name="passengers" required>
-                            <option value="">Select...</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5+</option>
-                        </select>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="message">Special Requirements</label>
-                        <textarea id="message" name="message" rows="4" placeholder="Any special requests or additional information..."></textarea>
-                    </div>
-                    
-                    <button type="submit" class="btn">Submit Booking Request</button>
-                </form>
-            </div>
+    <div class="container">
+        <div class="section-title">
+            <h2>Book Your Corporate Transport</h2>
         </div>
-    </section>
-
+        <div class="form-container">
+            <!-- Netlify Form with Thank You Redirect -->
+            <form name="booking-form" method="POST" netlify netlify-honeypot="bot-field" data-netlify="true">
+                <input type="hidden" name="form-name" value="booking-form">
+                <p class="hidden">
+                    <label>Don't fill this out if you're human: <input name="bot-field" /></label>
+                </p>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="name">Full Name *</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="company">Company Name *</label>
+                        <input type="text" id="company" name="company" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone Number *</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="pickup">Pickup Location *</label>
+                        <input type="text" id="pickup" name="pickup" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="destination">Destination *</label>
+                        <input type="text" id="destination" name="destination" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="date">Pickup Date *</label>
+                        <input type="date" id="date" name="date" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="time">Pickup Time *</label>
+                        <input type="time" id="time" name="time" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="passengers">Number of Passengers *</label>
+                    <select id="passengers" name="passengers" required>
+                        <option value="">Select...</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5+</option>
+                    </select>
+                </div>
+                
+                <!-- Services Required Section -->
+                <div class="form-group">
+                    <label>Services Required *</label>
+                    <div class="checkbox-group">
+                        
+                        <!-- Airport Transfers with Sub-options -->
+                        <div class="checkbox-item with-suboptions">
+                            <input type="checkbox" id="service-airport" name="services[]" value="Airport Transfers" class="main-checkbox">
+                            <label for="service-airport">Airport Transfers</label>
+                            <div class="suboptions" style="display: none;">
+                                <div class="radio-group">
+                                    <div class="radio-item">
+                                        <input type="radio" id="airport-oneway" name="airport_type" value="One Way">
+                                        <label for="airport-oneway">One Way</label>
+                                    </div>
+                                    <div class="radio-item">
+                                        <input type="radio" id="airport-roundtrip" name="airport_type" value="Round Trip">
+                                        <label for="airport-roundtrip">Round Trip</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Corporate Travel with Sub-options -->
+                        <div class="checkbox-item with-suboptions">
+                            <input type="checkbox" id="service-corporate" name="services[]" value="Corporate Travel" class="main-checkbox">
+                            <label for="service-corporate">Corporate Travel</label>
+                            <div class="suboptions" style="display: none;">
+                                <div class="radio-group">
+                                    <div class="radio-item">
+                                        <input type="radio" id="corporate-daily" name="corporate_type" value="Daily Commute">
+                                        <label for="corporate-daily">Daily Commute</label>
+                                    </div>
+                                    <div class="radio-item">
+                                        <input type="radio" id="corporate-meetings" name="corporate_type" value="Business Meetings">
+                                        <label for="corporate-meetings">Business Meetings</label>
+                                    </div>
+                                    <div class="radio-item">
+                                        <input type="radio" id="corporate-client" name="corporate_type" value="Client Transport">
+                                        <label for="corporate-client">Client Transport</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Event Transportation with Sub-options -->
+                        <div class="checkbox-item with-suboptions">
+                            <input type="checkbox" id="service-event" name="services[]" value="Event Transportation" class="main-checkbox">
+                            <label for="service-event">Event Transportation</label>
+                            <div class="suboptions" style="display: none;">
+                                <div class="radio-group">
+                                    <div class="radio-item">
+                                        <input type="radio" id="event-wedding" name="event_type" value="Weddings">
+                                        <label for="event-wedding">Weddings</label>
+                                    </div>
+                                    <div class="radio-item">
+                                        <input type="radio" id="event-conference" name="event_type" value="Conferences">
+                                        <label for="event-conference">Conferences</label>
+                                    </div>
+                                    <div class="radio-item">
+                                        <input type="radio" id="event-special" name="event_type" value="Special Events">
+                                        <label for="event-special">Special Events</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Executive Car Service -->
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="service-executive" name="services[]" value="Executive Car Service">
+                            <label for="service-executive">Executive Car Service</label>
+                        </div>
+                        
+                        <!-- Roadshow & Tours with Sub-options -->
+                        <div class="checkbox-item with-suboptions">
+                            <input type="checkbox" id="service-roadshow" name="services[]" value="Roadshow & Tours" class="main-checkbox">
+                            <label for="service-roadshow">Roadshow & Tours</label>
+                            <div class="suboptions" style="display: none;">
+                                <div class="radio-group">
+                                    <div class="radio-item">
+                                        <input type="radio" id="roadshow-corporate" name="roadshow_type" value="Corporate Roadshows">
+                                        <label for="roadshow-corporate">Corporate Roadshows</label>
+                                    </div>
+                                    <div class="radio-item">
+                                        <input type="radio" id="roadshow-city" name="roadshow_type" value="City Tours">
+                                        <label for="roadshow-city">City Tours</label>
+                                    </div>
+                                    <div class="radio-item">
+                                        <input type="radio" id="roadshow-multi" name="roadshow_type" value="Multi-city Tours">
+                                        <label for="roadshow-multi">Multi-city Tours</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Hourly Services -->
+                        <div class="checkbox-item with-suboptions">
+                            <input type="checkbox" id="service-hourly" name="services[]" value="Hourly Services" class="main-checkbox">
+                            <label for="service-hourly">Hourly Services</label>
+                            <div class="suboptions" style="display: none;">
+                                <div class="radio-group">
+                                    <div class="radio-item">
+                                        <input type="radio" id="hourly-4" name="hourly_type" value="4 Hours">
+                                        <label for="hourly-4">4 Hours</label>
+                                    </div>
+                                    <div class="radio-item">
+                                        <input type="radio" id="hourly-8" name="hourly_type" value="8 Hours">
+                                        <label for="hourly-8">8 Hours</label>
+                                    </div>
+                                    <div class="radio-item">
+                                        <input type="radio" id="hourly-12" name="hourly_type" value="12 Hours">
+                                        <label for="hourly-12">12 Hours</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+                
+                <!-- Premium Add-ons Section -->
+                <div class="form-group">
+                    <label>Premium Add-ons</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="addon-wifi" name="addons[]" value="WiFi Connectivity">
+                            <label for="addon-wifi">WiFi Connectivity</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="addon-meetgreet" name="addons[]" value="Meet & Greet Service">
+                            <label for="addon-meetgreet">Meet & Greet Service</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="addon-multilingual" name="addons[]" value="Multilingual Driver">
+                            <label for="addon-multilingual">Multilingual Driver</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="addon-luggage" name="addons[]" value="Extra Luggage Space">
+                            <label for="addon-luggage">Extra Luggage Space</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="addon-child" name="addons[]" value="Child Seats">
+                            <label for="addon-child">Child Seats</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Special Requirements</label>
+                    <textarea id="message" name="message" rows="4" placeholder="Any special requests or additional information..."></textarea>
+                </div>
+                
+                <button type="submit" class="btn">Submit Booking Request</button>
+            </form>
+        </div>
+    </div>
+</section>
+    
     <!-- Footer -->
     <footer id="contact">
         <div class="container footer-content">
@@ -912,6 +1147,26 @@
                     }, 1000);
                 });
             }
+
+    
+// Toggle sub-options when main checkbox is clicked
+document.addEventListener('DOMContentLoaded', function() {
+    const mainCheckboxes = document.querySelectorAll('.main-checkbox');
+    
+    mainCheckboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            const suboptions = this.closest('.checkbox-item').querySelector('.suboptions');
+            if (this.checked) {
+                suboptions.style.display = 'block';
+            } else {
+                suboptions.style.display = 'none';
+                // Clear radio buttons when main checkbox is unchecked
+                const radioButtons = suboptions.querySelectorAll('input[type="radio"]');
+                radioButtons.forEach(radio => radio.checked = false);
+            }
+        });
+      }
+
             
             // Smooth scrolling for navigation links
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
