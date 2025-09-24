@@ -372,6 +372,27 @@
             left: 0;
             font-size: 1.2rem;
         }
+
+        /* Fleet section bullets - show only checkmarks */
+         .fleet-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+         .fleet-list li {
+            position: relative;
+            padding-left: 30px;
+            margin-bottom: 10px;
+        }
+
+        .fleet-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #D4AF37; /* Gold color for checkmark */
+            font-weight: bold;
+            font-size: 1.2em;
+       }
         
         .car-image {
             flex: 1;
@@ -731,7 +752,7 @@
                 <h2>Our Premium Fleet</h2>
             </div>
             <div class="car-content">
-                <div class="car-info">
+                <div class="fleet-list">
                     <h3>Toyota Rumion - Iconic Grey</h3>
                     <p>Experience the perfect blend of style, comfort, and performance with our flagship Toyota Rumion in iconic grey. Designed for corporate travel excellence, our vehicles offer:</p>
                     <ul>
