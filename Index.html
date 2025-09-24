@@ -1067,15 +1067,19 @@
             }
 
     
-// Toggle sub-options when main checkbox is clicked
-document.addEventListener('DOMContentLoaded', function() {
+            // Toggle sub-options when main checkbox is clicked
+    document.addEventListener('DOMContentLoaded', function() {
     const serviceDropdown = document.getElementById('service-type');
     const suboptionsContainer = document.getElementById('service-suboptions');
+    
+    console.log('Script loaded - Service Dropdown:', serviceDropdown);
+    console.log('Suboptions Container:', suboptionsContainer);
     
     // Service sub-options configuration
     const serviceOptions = {
         'airport-transfers': {
             title: 'Airport Transfer Options',
+            name: 'airport_type',
             options: [
                 { id: 'airport-oneway', value: 'One Way', label: 'One Way' },
                 { id: 'airport-roundtrip', value: 'Round Trip', label: 'Round Trip' }
@@ -1083,6 +1087,7 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         'corporate-travel': {
             title: 'Corporate Travel Type',
+            name: 'corporate_type',
             options: [
                 { id: 'corporate-daily', value: 'Daily Commute', label: 'Daily Commute' },
                 { id: 'corporate-meetings', value: 'Business Meetings', label: 'Business Meetings' },
@@ -1091,6 +1096,7 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         'event-transportation': {
             title: 'Event Type',
+            name: 'event_type',
             options: [
                 { id: 'event-wedding', value: 'Weddings', label: 'Weddings' },
                 { id: 'event-conference', value: 'Conferences', label: 'Conferences' },
@@ -1098,14 +1104,16 @@ document.addEventListener('DOMContentLoaded', function() {
             ]
         },
         'executive-car': {
-            title: 'Executive Car Service',
+            title: 'Executive Car Service Type',
+            name: 'executive_type',
             options: [
-                { id: 'executive-standard', value: 'Standard Executive', label: 'Standard Executive Service' },
-                { id: 'executive-premium', value: 'Premium Executive', label: 'Premium Executive Service' }
+                { id: 'executive-standard', value: 'Standard Service', label: 'Standard Executive Service' },
+                { id: 'executive-premium', value: 'Premium Service', label: 'Premium Executive Service' }
             ]
         },
         'roadshow-tours': {
             title: 'Roadshow & Tours Type',
+            name: 'roadshow_type',
             options: [
                 { id: 'roadshow-corporate', value: 'Corporate Roadshows', label: 'Corporate Roadshows' },
                 { id: 'roadshow-city', value: 'City Tours', label: 'City Tours' },
@@ -1114,6 +1122,7 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         'hourly-services': {
             title: 'Duration Options',
+            name: 'hourly_type',
             options: [
                 { id: 'hourly-4', value: '4 Hours', label: '4 Hours' },
                 { id: 'hourly-8', value: '8 Hours', label: '8 Hours' },
@@ -1123,38 +1132,50 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     };
     
-    serviceDropdown.addEventListener('change', function() {
-        const selectedService = this.value;
-        
-        // Clear previous sub-options
-        suboptionsContainer.innerHTML = '';
-        suboptionsContainer.classList.remove('active');
-        
-        if (selectedService && serviceOptions[selectedService]) {
-            const serviceConfig = serviceOptions[selectedService];
+    if (serviceDropdown) {
+        serviceDropdown.addEventListener('change', function() {
+            const selectedService = this.value;
+            console.log('Service selected:', selectedService);
             
-            // Create sub-options HTML
-            const suboptionsHTML = `
-                <div class="suboption-group">
-                    <h4>${serviceConfig.title}</h4>
-                    <div class="radio-group">
-                        ${serviceConfig.options.map(option => `
-                            <div class="radio-item">
-                                <input type="radio" id="${option.id}" name="service_subtype" value="${option.value}" required>
-                                <label for="${option.id}">${option.label}</label>
-                            </div>
-                        `).join('')}
+            // Clear previous sub-options
+            suboptionsContainer.innerHTML = '';
+            suboptionsContainer.classList.remove('active');
+            
+            if (selectedService && serviceOptions[selectedService]) {
+                const serviceConfig = serviceOptions[selectedService];
+                console.log('Service config found:', serviceConfig);
+                
+                // Create sub-options HTML
+                const suboptionsHTML = `
+                    <div class="suboption-group">
+                        <h4>${serviceConfig.title}</h4>
+                        <div class="radio-group">
+                            ${serviceConfig.options.map(option => `
+                                <div class="radio-item">
+                                    <input type="radio" id="${option.id}" name="${serviceConfig.name}" value="${option.value}" required>
+                                    <label for="${option.id}">${option.label}</label>
+                                </div>
+                            `).join('')}
+                        </div>
                     </div>
-                </div>
-            `;
-            
-            suboptionsContainer.innerHTML = suboptionsHTML;
-            suboptionsContainer.classList.add('active');
+                `;
+                
+                suboptionsContainer.innerHTML = suboptionsHTML;
+                suboptionsContainer.classList.add('active');
+                
+                console.log('Suboptions added to container');
+            }
+        });
+        
+        // Trigger change event if there's already a selected value
+        if (serviceDropdown.value) {
+            serviceDropdown.dispatchEvent(new Event('change'));
         }
-    });
+    } else {
+        console.error('Service dropdown element not found!');
+    }
 });
-
-            
+ 
             // Smooth scrolling for navigation links
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
