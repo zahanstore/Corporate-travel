@@ -923,7 +923,7 @@
                 <p>Fill out the form below and we'll get back to you within 24 hours</p>
             </div>
             <div class="form-container">
-                <form name="booking-form" method="POST" netlify netlify-honeypot="bot-field" data-netlify="true">
+                <form name="booking-form" method="POST" netlify-honeypot="bot-field">
                     <input type="hidden" name="form-name" value="booking-form">
                     <p class="hidden"><label>Don't fill this out if you're human: <input name="bot-field" /></label></p>
 
@@ -1351,55 +1351,75 @@
         console.log('=================');
     }
 
-      async function submitToAirtable(formData) {
-  try {
-    const response = await fetch('/.netlify/functions/airtable-booking', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData)
-    });
+      // Airtable Form Submission Function
+async function submitToAirtable(formData) {
+    try {
+        console.log('Submitting to Airtable:', formData);
+        
+        const response = await fetch('/.netlify/functions/airtable-booking', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+        });
 
-    const result = await response.json();
-    
-    if (result.success) {
-      // Show success message
-      alert('✅ Booking submitted successfully! We will contact you soon.');
-      // Optional: Reset form
-      document.getElementById('booking-form').reset();
-    } else {
-      throw new Error(result.error);
+        const result = await response.json();
+        
+        if (result.success) {
+            // Show success message
+            alert('✅ Booking submitted successfully! We will contact you soon.');
+            // Reset form
+            document.querySelector('form[name="booking-form"]').reset();
+            // Hide any active suboptions
+            const suboptionsContainer = document.getElementById('service-suboptions');
+            if (suboptionsContainer) {
+                suboptionsContainer.classList.remove('active');
+                suboptionsContainer.innerHTML = '';
+            }
+        } else {
+            throw new Error(result.error);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('❌ Sorry, there was an error submitting your booking. Please try again or contact us directly.');
     }
-  } catch (error) {
-    console.error('Error:', error);
-    alert('❌ Sorry, there was an error submitting your booking. Please try again or contact us directly.');
-  }
 }
 
-// Attach to your form submission
+// Enhanced Form Submission Handler
 document.addEventListener('DOMContentLoaded', function() {
-  const bookingForm = document.getElementById('booking-form');
-  if (bookingForm) {
-    bookingForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      const formData = {
-        name: document.getElementById('name')?.value,
-        email: document.getElementById('email')?.value,
-        phone: document.getElementById('phone')?.value,
-        pickup: document.getElementById('pickup')?.value,
-        destination: document.getElementById('destination')?.value,
-        date: document.getElementById('date')?.value,
-        time: document.getElementById('time')?.value,
-        service: document.getElementById('service')?.value,
-        guests: document.getElementById('guests')?.value,
-        message: document.getElementById('message')?.value
-      };
-      
-      submitToAirtable(formData);
-    });
-  }
+    const bookingForm = document.querySelector('form[name="booking-form"]');
+    
+    if (bookingForm) {
+        bookingForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Collect all form data
+            const formData = {
+                name: document.getElementById('name')?.value,
+                email: document.getElementById('email')?.value,
+                phone: document.getElementById('phone')?.value,
+                company: document.getElementById('company')?.value,
+                pickup: document.getElementById('pickup')?.value,
+                destination: document.getElementById('destination')?.value,
+                date: document.getElementById('date')?.value,
+                time: document.getElementById('time')?.value,
+                service: document.getElementById('service-type')?.value,
+                guests: document.getElementById('passengers')?.value,
+                message: document.getElementById('message')?.value,
+                // Service subtype data
+                service_subtype: document.getElementById('service-subtype-input')?.value || '',
+                service_subtype_name: document.getElementById('service-subtype-name-input')?.value || '',
+                // Premium add-ons
+                addons: Array.from(document.querySelectorAll('input[name="addons[]"]:checked')).map(cb => cb.value)
+            };
+            
+            console.log('Form data collected:', formData);
+            
+            // Submit to Airtable
+            submitToAirtable(formData);
+        });
+    }
 });
     // Add event listener to log form data before submission
     document.addEventListener('DOMContentLoaded', function() {
