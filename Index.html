@@ -923,7 +923,7 @@
                 <p>Fill out the form below and we'll get back to you within 24 hours</p>
             </div>
             <div class="form-container">
-                <form name="booking-form" method="POST" netlify-honeypot="bot-field">
+                <form name="booking-form" method="POST" id="booking-form">
                     <input type="hidden" name="form-name" value="booking-form">
                     <p class="hidden"><label>Don't fill this out if you're human: <input name="bot-field" /></label></p>
 
@@ -1351,6 +1351,7 @@
         console.log('=================');
     }
 
+
 // Airtable Form Submission Function
 async function submitToAirtable(formData) {
     try {
@@ -1371,21 +1372,71 @@ async function submitToAirtable(formData) {
             // Show success message
             alert('✅ Booking submitted successfully! We will contact you soon.');
             // Reset form
-            document.querySelector('form[name="booking-form"]').reset();
+            document.getElementById('booking-form').reset();
             // Hide any active suboptions
             const suboptionsContainer = document.getElementById('service-suboptions');
             if (suboptionsContainer) {
                 suboptionsContainer.classList.remove('active');
                 suboptionsContainer.innerHTML = '';
             }
+            return true;
         } else {
             throw new Error(result.error || 'Unknown server error');
         }
     } catch (error) {
         console.error('❌ Submission error:', error);
         alert('❌ Sorry, there was an error: ' + error.message + '\n\nPlease try again or contact us directly at +91 9029951186');
+        return false;
     }
 }
+
+// Enhanced Form Submission Handler
+document.addEventListener('DOMContentLoaded', function() {
+    const bookingForm = document.getElementById('booking-form');
+    
+    if (bookingForm) {
+        bookingForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            e.stopPropagation(); // Important: Stop Netlify form handling
+            
+            console.log('Form submission intercepted');
+            
+            // Collect all form data
+            const formData = {
+                name: document.getElementById('name')?.value,
+                email: document.getElementById('email')?.value,
+                phone: document.getElementById('phone')?.value,
+                company: document.getElementById('company')?.value,
+                pickup: document.getElementById('pickup')?.value,
+                destination: document.getElementById('destination')?.value,
+                date: document.getElementById('date')?.value,
+                time: document.getElementById('time')?.value,
+                service: document.getElementById('service-type')?.value,
+                guests: document.getElementById('passengers')?.value,
+                message: document.getElementById('message')?.value,
+                // Service subtype data
+                service_subtype: document.getElementById('service-subtype-input')?.value || '',
+                // Premium add-ons
+                addons: Array.from(document.querySelectorAll('input[name="addons[]"]:checked')).map(cb => cb.value)
+            };
+            
+            console.log('Form data collected:', formData);
+            
+            // Validate required fields
+            if (!formData.name || !formData.email || !formData.phone || !formData.pickup || !formData.destination || !formData.date || !formData.time || !formData.service) {
+                alert('❌ Please fill in all required fields.');
+                return;
+            }
+            
+            // Submit to Airtable
+            const success = await submitToAirtable(formData);
+            
+            if (success) {
+                // Optional: You can also submit to Netlify Forms as backup
+                // But for now, let's just use Airtable
+                console.log('✅ Booking successfully saved to Airtable');
+            }
+    
     // Add event listener to log form data before submission
     document.addEventListener('DOMContentLoaded', function() {
         const form = document.querySelector('form');
