@@ -1351,6 +1351,56 @@
         console.log('=================');
     }
 
+      async function submitToAirtable(formData) {
+  try {
+    const response = await fetch('/.netlify/functions/airtable-booking', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData)
+    });
+
+    const result = await response.json();
+    
+    if (result.success) {
+      // Show success message
+      alert('✅ Booking submitted successfully! We will contact you soon.');
+      // Optional: Reset form
+      document.getElementById('booking-form').reset();
+    } else {
+      throw new Error(result.error);
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    alert('❌ Sorry, there was an error submitting your booking. Please try again or contact us directly.');
+  }
+}
+
+// Attach to your form submission
+document.addEventListener('DOMContentLoaded', function() {
+  const bookingForm = document.getElementById('booking-form');
+  if (bookingForm) {
+    bookingForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const formData = {
+        name: document.getElementById('name')?.value,
+        email: document.getElementById('email')?.value,
+        phone: document.getElementById('phone')?.value,
+        pickup: document.getElementById('pickup')?.value,
+        destination: document.getElementById('destination')?.value,
+        date: document.getElementById('date')?.value,
+        time: document.getElementById('time')?.value,
+        service: document.getElementById('service')?.value,
+        guests: document.getElementById('guests')?.value,
+        message: document.getElementById('message')?.value
+      };
+      
+      submitToAirtable(formData);
+    });
+  }
+});
     // Add event listener to log form data before submission
     document.addEventListener('DOMContentLoaded', function() {
         const form = document.querySelector('form');
