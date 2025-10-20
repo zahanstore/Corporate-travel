@@ -1426,6 +1426,59 @@ document.addEventListener('DOMContentLoaded', function() {
         
         console.log('✅ Form fix applied successfully');
     }
+
+    // Form submission handler
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('booking-form');
+    
+    if (form) {
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            console.log('Form submission started');
+            
+            // Collect form data
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                company: document.getElementById('company').value,
+                pickup: document.getElementById('pickup').value,
+                destination: document.getElementById('destination').value,
+                date: document.getElementById('date').value,
+                time: document.getElementById('time').value,
+                service: document.getElementById('service-type').value,
+                guests: document.getElementById('passengers').value,
+                message: document.getElementById('message').value,
+                service_subtype: document.getElementById('service-subtype-input')?.value || '',
+                addons: Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map(cb => cb.value)
+            };
+            
+            console.log('Submitting:', formData);
+            
+            try {
+                const response = await fetch('/.netlify/functions/airtable-booking', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                const result = await response.json();
+                console.log('Server response:', result);
+                
+                if (result.success) {
+                    alert('✅ Booking submitted successfully! We will contact you soon.');
+                    form.reset();
+                } else {
+                    alert('❌ Error: ' + result.error);
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('❌ Network error: ' + error.message);
+            }
+        });
+    }
 });
 </script>
 </body>
