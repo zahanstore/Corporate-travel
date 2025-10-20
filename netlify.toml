@@ -2,7 +2,10 @@
   publish = "."
   functions = "functions"
 
+[functions]
+  directory = "functions"
+
 [[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/:splat"
+  from = "/*"
+  to = "/index.html"
   status = 200
