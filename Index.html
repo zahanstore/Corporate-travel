@@ -1513,6 +1513,65 @@ function testFormSubmission() {
 }
 
 // Call this function manually or add a test button
+// Add a test button to your site
+function addTestButton() {
+    const testBtn = document.createElement('button');
+    testBtn.innerHTML = '🧪 TEST AIRTABLE FUNCTION';
+    testBtn.style.cssText = `
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        background: #D4AF37;
+        color: black;
+        padding: 15px;
+        border: none;
+        border-radius: 10px;
+        font-size: 16px;
+        font-weight: bold;
+        z-index: 10000;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    `;
+    
+    testBtn.onclick = async function() {
+        const testData = {
+            name: "Test Customer",
+            email: "test@example.com",
+            phone: "1234567890",
+            company: "Test Company", 
+            pickup: "Mumbai Airport",
+            destination: "Corporate Office",
+            date: "2024-01-20",
+            time: "14:00",
+            service: "airport-transfers",
+            guests: "2",
+            message: "Test from button",
+            service_subtype: "One Way",
+            addons: ["WiFi Connectivity"]
+        };
+        
+        try {
+            const response = await fetch('/.netlify/functions/airtable-booking', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(testData)
+            });
+            
+            const result = await response.json();
+            alert('RESULT: ' + JSON.stringify(result, null, 2));
+        } catch (error) {
+            alert('ERROR: ' + error.message);
+        }
+    };
+    
+    document.body.appendChild(testBtn);
+}
+
+// Add the button when page loads
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', addTestButton);
+} else {
+    addTestButton();
+}
         });
     }
 });
