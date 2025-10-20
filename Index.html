@@ -916,159 +916,145 @@
     </section>
 
       <!-- Booking Form -->
-    <section class="booking" id="booking">
-        <div class="container">
-            <div class="section-title">
-                <h2>Book Your Corporate Transport</h2>
-                <p>Fill out the form below and we'll get back to you within 24 hours</p>
-            </div>
-            <div class="form-container">
-                <form name="booking-form" method="POST" id="booking-form">
-                    <input type="hidden" name="form-name" value="booking-form">
-                    <p class="hidden"><label>Don't fill this out if you're human: <input name="bot-field" /></label></p>
+         <section class="booking" id="booking">
+         <div class="container">
+         <div class="section-title">
+            <h2>Book Your Corporate Transport</h2>
+            <p>Fill out the form below and we'll get back to you within 24 hours</p>
+        </div>
+        <div class="form-container">
+            <!-- REMOVED ALL NETLIFY ATTRIBUTES -->
+            <form name="booking-form" method="POST" id="booking-form">
+                <!-- Personal Information -->
+                <div class="form-section">
+                    <h3>Personal Information</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Full Name *</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="company">Company Name *</label>
+                            <input type="text" id="company" name="company" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email Address *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number *</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Trip Details -->
+                <div class="form-section">
+                    <h3>Trip Details</h3>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="pickup">Pickup Location *</label>
+                            <input type="text" id="pickup" name="pickup" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="destination">Destination *</label>
+                            <input type="text" id="destination" name="destination" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="date">Pickup Date *</label>
+                            <input type="date" id="date" name="date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="time">Pickup Time *</label>
+                            <input type="time" id="time" name="time" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="passengers">Number of Passengers *</label>
+                        <select id="passengers" name="passengers" required>
+                            <option value="">Select...</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5+</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <!-- Services Required Section -->
+                <div class="form-section">
+                    <h3>Services Required</h3>
+                    <div class="form-group">
+                        <label for="service-type">Select Service Type *</label>
+                        <select id="service-type" name="service_type" required class="service-dropdown">
+                            <option value="">Choose a service...</option>
+                            <option value="airport-transfers">✈️ Airport Transfers</option>
+                            <option value="event-transportation">🧳 Corporate Events</option>
+                            <option value="executive-car">📍 Point to Point Service</option>
+                            <option value="roadshow-tours">🗺️ City Tours</option>
+                            <option value="hourly-services">🌇 Full Day Rentals</option>
+                        </select>
+                    </div>
 
-                        <!-- 👇 PUT IT RIGHT HERE 👇 -->
-                        <!-- Add this hidden div container for all possible sub-options (Netlify backup) -->
-    <div style="display: none;">
-        <!-- Hidden fields to ensure Netlify captures all possible options -->
-        <input type="hidden" name="airport_type" value="">
-        <input type="hidden" name="event_type" value="">
-        <input type="hidden" name="point_type" value="">
-        <input type="hidden" name="tour_type" value="">
-        <input type="hidden" name="rental_type" value="">
-    </div>
-                    <!-- 👆 PUT IT RIGHT HERE 👆 -->
-   
-                    <!-- Personal Information -->
-                    <div class="form-section">
-                        <h3>Personal Information</h3>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="name">Full Name *</label>
-                                <input type="text" id="name" name="name" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="company">Company Name *</label>
-                                <input type="text" id="company" name="company" required>
-                            </div>
+                    <!-- Sub-options Container -->
+                    <div id="service-suboptions" class="suboptions-container">
+                        <!-- Sub-options will appear here dynamically -->
+                    </div>
+                </div>
+                
+                <!-- Premium Add-ons -->
+                <div class="form-section">
+                    <h3>Premium Add-ons (Optional)</h3>
+                    <div class="premium-addons">
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="addon-wifi" name="addon-wifi" value="WiFi Connectivity">
+                            <label for="addon-wifi">WiFi Connectivity</label>
                         </div>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="email">Email Address *</label>
-                                <input type="email" id="email" name="email" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="phone">Phone Number *</label>
-                                <input type="tel" id="phone" name="phone" required>
-                            </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="addon-meetgreet" name="addon-meetgreet" value="Meet & Greet Service">
+                            <label for="addon-meetgreet">Meet & Greet Service</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="addon-snackswater" name="addon-snackswater" value="Snacks & Bottled Water">
+                            <label for="addon-snackswater">Snacks & Bottled Mineral Water</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="addon-multilingual" name="addon-multilingual" value="Multilingual Driver">
+                            <label for="addon-multilingual">Multilingual Driver</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="addon-luggage" name="addon-luggage" value="Extra Luggage Space">
+                            <label for="addon-luggage">Extra Luggage Space</label>
+                        </div>
+                        <div class="checkbox-item">
+                            <input type="checkbox" id="addon-child" name="addon-child" value="Child Seats">
+                            <label for="addon-child">Child Seats</label>
                         </div>
                     </div>
-                    
-                    <!-- Trip Details -->
-                    <div class="form-section">
-                        <h3>Trip Details</h3>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="pickup">Pickup Location *</label>
-                                <input type="text" id="pickup" name="pickup" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="destination">Destination *</label>
-                                <input type="text" id="destination" name="destination" required>
-                            </div>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="date">Pickup Date *</label>
-                                <input type="date" id="date" name="date" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="time">Pickup Time *</label>
-                                <input type="time" id="time" name="time" required>
-                            </div>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="passengers">Number of Passengers *</label>
-                            <select id="passengers" name="passengers" required>
-                                <option value="">Select...</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5+</option>
-                            </select>
-                        </div>
+                </div>
+                
+                <!-- Special Requirements -->
+                <div class="form-section">
+                    <h3>Additional Information</h3>
+                    <div class="form-group">
+                        <label for="message">Special Requirements</label>
+                        <textarea id="message" name="message" rows="4" placeholder="Any special requests or additional information..."></textarea>
                     </div>
-                    
-                    <!-- Services Required Section -->
-                    <div class="form-section">
-                        <h3>Services Required</h3>
-                        <div class="form-group">
-                            <label for="service-type">Select Service Type *</label>
-                            <select id="service-type" name="service_type" required class="service-dropdown">
-                                <option value="">Choose a service...</option>
-                                <option value="airport-transfers">✈️ Airport Transfers</option>
-                                <option value="event-transportation">🧳 Corporate Events</option>
-                                <option value="executive-car">📍 Point to Point Service</option>
-                                <option value="roadshow-tours">🗺️ City Tours</option>
-                                <option value="hourly-services">🌇 Full Day Rentals</option>
-                            </select>
-                        </div>
-
-                        <!-- Sub-options Container -->
-                        <div id="service-suboptions" class="suboptions-container">
-                            <!-- Sub-options will appear here dynamically -->
-                        </div>
-                    </div>
-                    
-                    <!-- Premium Add-ons -->
-                    <div class="form-section">
-                        <h3>Premium Add-ons (Optional)</h3>
-                        <div class="premium-addons">
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="addon-wifi" name="addons[]" value="WiFi Connectivity">
-                                <label for="addon-wifi">WiFi Connectivity</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="addon-meetgreet" name="addons[]" value="Meet & Greet Service">
-                                <label for="addon-meetgreet">Meet & Greet Service</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="addon-snackswater" name="addons[]" value="Snacks & Bottled Water">
-                                <label for="addon-snackswater">Snacks & Bottled Mineral Water</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="addon-multilingual" name="addons[]" value="Multilingual Driver">
-                                <label for="addon-multilingual">Multilingual Driver</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="addon-luggage" name="addons[]" value="Extra Luggage Space">
-                                <label for="addon-luggage">Extra Luggage Space</label>
-                            </div>
-                            <div class="checkbox-item">
-                                <input type="checkbox" id="addon-child" name="addons[]" value="Child Seats">
-                                <label for="addon-child">Child Seats</label>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Special Requirements -->
-                    <div class="form-section">
-                        <h3>Additional Information</h3>
-                        <div class="form-group">
-                            <label for="message">Special Requirements</label>
-                            <textarea id="message" name="message" rows="4" placeholder="Any special requests or additional information..."></textarea>
-                        </div>
-                    </div>
-                    
-                    <button type="submit" class="btn">Submit Booking Request</button>
-                </form>
-            </div>
-        </div>                           
-    </section>
+                </div>
+                
+                <button type="submit" class="btn">Submit Booking Request</button>
+            </form>
+        </div>
+    </div>                           
+</section>              
     
     <!-- Footer -->
     <footer id="contact">
@@ -1109,248 +1095,129 @@
     </footer>
 
   <script>
-    // Mobile Navigation Toggle
-    const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
-    const mobileNav = document.querySelector('.mobile-nav');
-    const body = document.body;
+          // Mobile Navigation Toggle
+const mobileNavToggle = document.querySelector('.mobile-nav-toggle');
+const mobileNav = document.querySelector('.mobile-nav');
+const body = document.body;
 
-    mobileNavToggle.addEventListener('click', function() {
-        this.classList.toggle('active');
-        mobileNav.classList.toggle('active');
-        body.classList.toggle('no-scroll');
+mobileNavToggle.addEventListener('click', function() {
+    this.classList.toggle('active');
+    mobileNav.classList.toggle('active');
+    body.classList.toggle('no-scroll');
+});
+
+// Close mobile nav when clicking on a link
+const mobileNavLinks = document.querySelectorAll('.mobile-nav a');
+mobileNavLinks.forEach(link => {
+    link.addEventListener('click', function() {
+        mobileNavToggle.classList.remove('active');
+        mobileNav.classList.remove('active');
+        body.classList.remove('no-scroll');
     });
+});
 
-    // Close mobile nav when clicking on a link
-    const mobileNavLinks = document.querySelectorAll('.mobile-nav a');
-    mobileNavLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            mobileNavToggle.classList.remove('active');
-            mobileNav.classList.remove('active');
-            body.classList.remove('no-scroll');
-        });
-    });
+// Service Dropdown Functionality
+const serviceDropdown = document.getElementById('service-type');
+const suboptionsContainer = document.getElementById('service-suboptions');
 
-    // Service Dropdown Functionality
-    const serviceDropdown = document.getElementById('service-type');
-    const suboptionsContainer = document.getElementById('service-suboptions');
+// Service sub-options configuration
+const serviceOptions = {
+    'airport-transfers': {
+        title: 'Airport Transfer Options',
+        name: 'airport_type',
+        options: [
+            { id: 'airport-oneway', value: 'One Way', label: 'One Way' },
+            { id: 'airport-roundtrip', value: 'Round Trip', label: 'Round Trip' }
+        ]
+    },
+    'event-transportation': {
+        title: 'Event Type',
+        name: 'event_type',
+        options: [
+            { id: 'event-corporate', value: 'Corporate Events', label: 'Corporate Events' },
+            { id: 'event-conference', value: 'Conferences', label: 'Conferences' },
+            { id: 'event-special', value: 'Special Events', label: 'Special Events' }
+        ]
+    },
+    'executive-car': {
+        title: 'Point to Point Service',
+        name: 'point_type',
+        options: [
+            { id: 'point-standard', value: 'Standard Service', label: 'Standard Service' },
+            { id: 'point-premium', value: 'Premium Service', label: 'Premium Service' }
+        ]
+    },
+    'roadshow-tours': {
+        title: 'City Tour Options',
+        name: 'tour_type',
+        options: [
+            { id: 'tour-halfday', value: 'Half Day Tour', label: 'Half Day Tour (4 hours)' },
+            { id: 'tour-fullday', value: 'Full Day Tour', label: 'Full Day Tour (8 hours)' },
+            { id: 'tour-custom', value: 'Custom Tour', label: 'Custom Duration' }
+        ]
+    },
+    'hourly-services': {
+        title: 'Full Day Rental Options',
+        name: 'rental_type',
+        options: [
+            { id: 'rental-8', value: '8 Hours', label: '8 Hours Package' },
+            { id: 'rental-12', value: '12 Hours', label: '12 Hours Package' },
+            { id: 'rental-24', value: '24 Hours', label: '24 Hours Package' }
+        ]
+    }
+};
 
-    // Service sub-options configuration
-    const serviceOptions = {
-        'airport-transfers': {
-            title: 'Airport Transfer Options',
-            name: 'airport_type',
-            options: [
-                { id: 'airport-oneway', value: 'One Way', label: 'One Way' },
-                { id: 'airport-roundtrip', value: 'Round Trip', label: 'Round Trip' }
-            ]
-        },
-        'event-transportation': {
-            title: 'Event Type',
-            name: 'event_type',
-            options: [
-                { id: 'event-corporate', value: 'Corporate Events', label: 'Corporate Events' },
-                { id: 'event-conference', value: 'Conferences', label: 'Conferences' },
-                { id: 'event-special', value: 'Special Events', label: 'Special Events' }
-            ]
-        },
-        'executive-car': {
-            title: 'Point to Point Service',
-            name: 'point_type',
-            options: [
-                { id: 'point-standard', value: 'Standard Service', label: 'Standard Service' },
-                { id: 'point-premium', value: 'Premium Service', label: 'Premium Service' }
-            ]
-        },
-        'roadshow-tours': {
-            title: 'City Tour Options',
-            name: 'tour_type',
-            options: [
-                { id: 'tour-halfday', value: 'Half Day Tour', label: 'Half Day Tour (4 hours)' },
-                { id: 'tour-fullday', value: 'Full Day Tour', label: 'Full Day Tour (8 hours)' },
-                { id: 'tour-custom', value: 'Custom Tour', label: 'Custom Duration' }
-            ]
-        },
-        'hourly-services': {
-            title: 'Full Day Rental Options',
-            name: 'rental_type',
-            options: [
-                { id: 'rental-8', value: '8 Hours', label: '8 Hours Package' },
-                { id: 'rental-12', value: '12 Hours', label: '12 Hours Package' },
-                { id: 'rental-24', value: '24 Hours', label: '24 Hours Package' }
-            ]
-        }
-    };
-
-    // Service dropdown change handler
-    if (serviceDropdown && suboptionsContainer) {
-        serviceDropdown.addEventListener('change', function() {
-            const selectedService = this.value;
+// Service dropdown change handler
+if (serviceDropdown && suboptionsContainer) {
+    serviceDropdown.addEventListener('change', function() {
+        const selectedService = this.value;
+        
+        // Clear previous sub-options
+        suboptionsContainer.innerHTML = '';
+        suboptionsContainer.classList.remove('active');
+        
+        // Remove any existing hidden fields
+        document.querySelectorAll('input[name="service_subtype"]').forEach(field => field.remove());
+        
+        if (selectedService && serviceOptions[selectedService]) {
+            const serviceConfig = serviceOptions[selectedService];
             
-            // Clear previous sub-options
-            suboptionsContainer.innerHTML = '';
-            suboptionsContainer.classList.remove('active');
-            
-            // Remove any existing hidden fields
-            document.querySelectorAll('input[name="service_subtype"]').forEach(field => field.remove());
-            
-            if (selectedService && serviceOptions[selectedService]) {
-                const serviceConfig = serviceOptions[selectedService];
-                
-                // Create sub-options HTML
-                const suboptionsHTML = `
-                    <div class="suboption-group">
-                        <h4>${serviceConfig.title}</h4>
-                        <div class="radio-group">
-                            ${serviceConfig.options.map(option => `
-                                <div class="radio-item">
-                                    <input type="radio" id="${option.id}" name="${serviceConfig.name}" value="${option.value}" required 
-                                           onchange="updateServiceSubtype('${option.value}', '${serviceConfig.name}')">
-                                    <label for="${option.id}">${option.label}</label>
-                                </div>
-                            `).join('')}
-                        </div>
+            // Create sub-options HTML
+            const suboptionsHTML = `
+                <div class="suboption-group">
+                    <h4>${serviceConfig.title}</h4>
+                    <div class="radio-group">
+                        ${serviceConfig.options.map(option => `
+                            <div class="radio-item">
+                                <input type="radio" id="${option.id}" name="${serviceConfig.name}" value="${option.value}" required 
+                                       onchange="updateServiceSubtype('${option.value}', '${serviceConfig.name}')">
+                                <label for="${option.id}">${option.label}</label>
+                            </div>
+                        `).join('')}
                     </div>
-                `;
-                
-                suboptionsContainer.innerHTML = suboptionsHTML;
-                suboptionsContainer.classList.add('active');
-                
-                // Add hidden fields to capture the selections for Netlify
-                const serviceTypeInput = document.createElement('input');
-                serviceTypeInput.type = 'hidden';
-                serviceTypeInput.name = 'selected_service_type';
-                serviceTypeInput.value = serviceDropdown.options[serviceDropdown.selectedIndex].text;
-                suboptionsContainer.appendChild(serviceTypeInput);
-                
-                const serviceSubtypeInput = document.createElement('input');
-                serviceSubtypeInput.type = 'hidden';
-                serviceSubtypeInput.name = 'selected_service_subtype';
-                serviceSubtypeInput.id = 'service-subtype-input';
-                suboptionsContainer.appendChild(serviceSubtypeInput);
-                
-                const serviceSubtypeNameInput = document.createElement('input');
-                serviceSubtypeNameInput.type = 'hidden';
-                serviceSubtypeNameInput.name = 'selected_service_subtype_name';
-                serviceSubtypeNameInput.id = 'service-subtype-name-input';
-                suboptionsContainer.appendChild(serviceSubtypeNameInput);
-            }
-        });
-    }
-
-    // Function to update the hidden fields with selected sub-option
-    function updateServiceSubtype(value, name) {
-        const subtypeInput = document.getElementById('service-subtype-input');
-        const subtypeNameInput = document.getElementById('service-subtype-name-input');
-        
-        if (subtypeInput) {
-            subtypeInput.value = value;
+                </div>
+            `;
+            
+            suboptionsContainer.innerHTML = suboptionsHTML;
+            suboptionsContainer.classList.add('active');
+            
+            // Add hidden fields to capture the selections
+            const serviceSubtypeInput = document.createElement('input');
+            serviceSubtypeInput.type = 'hidden';
+            serviceSubtypeInput.name = 'selected_service_subtype';
+            serviceSubtypeInput.id = 'service-subtype-input';
+            suboptionsContainer.appendChild(serviceSubtypeInput);
         }
-        if (subtypeNameInput) {
-            subtypeNameInput.value = name;
-        }
-    }
-
-    // Form validation and submission handler
-    document.addEventListener('DOMContentLoaded', function() {
-        const form = document.querySelector('form');
-        
-        // Check if we're on a thank you page
-        if (window.location.search.includes('thankyou=true')) {
-            alert('Thank you for your booking request! We will contact you shortly to confirm your reservation.');
-            window.history.replaceState({}, document.title, window.location.pathname);
-        }
-        
-        if (form) {
-            form.addEventListener('submit', function(e) {
-                // Basic validation for service sub-options
-                const serviceType = document.getElementById('service-type').value;
-                const serviceSubtype = document.getElementById('service-subtype-input')?.value;
-                
-                if (serviceType && !serviceSubtype) {
-                    e.preventDefault();
-                    alert('Please select an option for the chosen service type.');
-                    return false;
-                }
-                
-                // Validate that at least one sub-option is selected
-                if (serviceType) {
-                    const selectedSuboption = document.querySelector(`input[name="${getServiceSubtypeName(serviceType)}"]:checked`);
-                    if (!selectedSuboption) {
-                        e.preventDefault();
-                        alert('Please select an option for the chosen service type.');
-                        return false;
-                    }
-                    
-                    // Ensure hidden field is updated with the actual selected value
-                    const subtypeInput = document.getElementById('service-subtype-input');
-                    if (subtypeInput) {
-                        subtypeInput.value = selectedSuboption.value;
-                    }
-                }
-                
-                // For Netlify forms - allow normal submission
-                console.log('Form submitted with service type:', serviceType);
-                console.log('Form submitted with service subtype:', serviceSubtype);
-                
-                // Optional: Add a small delay to ensure form data is captured
-                setTimeout(function() {
-                    // Netlify will handle the redirect to the thank you page
-                }, 100);
-            });
-        }
-
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                
-                const targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                
-                const targetElement = document.querySelector(targetId);
-                if (targetElement) {
-                    window.scrollTo({
-                        top: targetElement.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        });
     });
+}
 
-    // Helper function to get service subtype name
-    function getServiceSubtypeName(serviceType) {
-        const serviceConfig = serviceOptions[serviceType];
-        return serviceConfig ? serviceConfig.name : '';
+// Function to update the hidden fields with selected sub-option
+function updateServiceSubtype(value, name) {
+    const subtypeInput = document.getElementById('service-subtype-input');
+    if (subtypeInput) {
+        subtypeInput.value = value;
     }
-
-    // Initialize form state on page load
-    document.addEventListener('DOMContentLoaded', function() {
-        // Check if there's a previously selected service and show its options
-        const serviceDropdown = document.getElementById('service-type');
-        if (serviceDropdown && serviceDropdown.value) {
-            serviceDropdown.dispatchEvent(new Event('change'));
-        }
-        
-        // Add change listeners to all premium add-ons for better tracking
-        const premiumCheckboxes = document.querySelectorAll('input[name="addons[]"]');
-        premiumCheckboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', function() {
-                console.log('Premium add-on changed:', this.value, this.checked);
-            });
-        });
-    });
-
-    // Enhanced form data logging for debugging
-    function logFormData() {
-        const formData = new FormData(document.querySelector('form'));
-        console.log('=== FORM DATA ===');
-        for (let [key, value] of formData.entries()) {
-            console.log(key + ': ' + value);
-        }
-        console.log('=================');
-    }
-
+}
 
 // Airtable Form Submission Function
 async function submitToAirtable(formData) {
@@ -1372,34 +1239,43 @@ async function submitToAirtable(formData) {
             // Show success message
             alert('✅ Booking submitted successfully! We will contact you soon.');
             // Reset form
-            document.getElementById('booking-form').reset();
+            document.querySelector('form[name="booking-form"]').reset();
             // Hide any active suboptions
             const suboptionsContainer = document.getElementById('service-suboptions');
             if (suboptionsContainer) {
                 suboptionsContainer.classList.remove('active');
                 suboptionsContainer.innerHTML = '';
             }
-            return true;
         } else {
             throw new Error(result.error || 'Unknown server error');
         }
     } catch (error) {
         console.error('❌ Submission error:', error);
         alert('❌ Sorry, there was an error: ' + error.message + '\n\nPlease try again or contact us directly at +91 9029951186');
-        return false;
     }
 }
 
-// Enhanced Form Submission Handler
+// Main Form Submission Handler - ONLY THIS ONE
 document.addEventListener('DOMContentLoaded', function() {
-    const bookingForm = document.getElementById('booking-form');
+    const bookingForm = document.querySelector('form[name="booking-form"]');
     
     if (bookingForm) {
-        bookingForm.addEventListener('submit', async function(e) {
+        // Remove Netlify form handling completely
+        bookingForm.removeAttribute('netlify');
+        bookingForm.removeAttribute('data-netlify');
+        bookingForm.removeAttribute('netlify-honeypot');
+        
+        // Remove any hidden Netlify fields
+        const botField = bookingForm.querySelector('input[name="bot-field"]');
+        if (botField) botField.remove();
+        
+        const formNameField = bookingForm.querySelector('input[name="form-name"]');
+        if (formNameField) formNameField.remove();
+        
+        // Add single submit event listener
+        bookingForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            e.stopPropagation(); // Important: Stop Netlify form handling
-            
-            console.log('Form submission intercepted');
+            console.log('Form submission intercepted for Airtable');
             
             // Collect all form data
             const formData = {
@@ -1416,36 +1292,47 @@ document.addEventListener('DOMContentLoaded', function() {
                 message: document.getElementById('message')?.value,
                 // Service subtype data
                 service_subtype: document.getElementById('service-subtype-input')?.value || '',
-                // Premium add-ons
-                addons: Array.from(document.querySelectorAll('input[name="addons[]"]:checked')).map(cb => cb.value)
-            };
+                
+                // Premium add-ons - collect checked checkboxes
+addons: Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map(cb => cb.value)
             
             console.log('Form data collected:', formData);
             
-            // Validate required fields
-            if (!formData.name || !formData.email || !formData.phone || !formData.pickup || !formData.destination || !formData.date || !formData.time || !formData.service) {
-                alert('❌ Please fill in all required fields.');
-                return;
-            }
-            
             // Submit to Airtable
-            const success = await submitToAirtable(formData);
+            submitToAirtable(formData);
+        });
+    }
+
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
             
-            if (success) {
-                // Optional: You can also submit to Netlify Forms as backup
-                // But for now, let's just use Airtable
-                console.log('✅ Booking successfully saved to Airtable');
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                window.scrollTo({
+                    top: targetElement.offsetTop - 80,
+                    behavior: 'smooth'
+                });
             }
-    
-    // Add event listener to log form data before submission
-    document.addEventListener('DOMContentLoaded', function() {
-        const form = document.querySelector('form');
-        if (form) {
-            form.addEventListener('submit', function() {
-                logFormData();
-            });
-        }
+        });
     });
+
+    // Initialize form state on page load
+    const serviceDropdown = document.getElementById('service-type');
+    if (serviceDropdown && serviceDropdown.value) {
+        serviceDropdown.dispatchEvent(new Event('change'));
+    }
+});
+
+// Helper function to get service subtype name
+function getServiceSubtypeName(serviceType) {
+    const serviceConfig = serviceOptions[serviceType];
+    return serviceConfig ? serviceConfig.name : '';
+} 
 </script>
 </body>
 </html>
