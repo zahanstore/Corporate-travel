@@ -1477,6 +1477,42 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.error('Error:', error);
                 alert('❌ Network error: ' + error.message);
             }
+
+            // Add this to test if form is working
+function testFormSubmission() {
+    const formData = {
+        name: "Test User",
+        email: "test@test.com",
+        phone: "1234567890",
+        company: "Test Corp",
+        pickup: "Test Pickup",
+        destination: "Test Destination",
+        date: "2024-01-20",
+        time: "14:00",
+        service: "airport-transfers",
+        guests: "2",
+        message: "Test message",
+        service_subtype: "One Way",
+        addons: ["WiFi"]
+    };
+    
+    alert('🧪 Testing with: ' + JSON.stringify(formData));
+    
+    fetch('/.netlify/functions/airtable-booking', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(formData)
+    })
+    .then(r => r.json())
+    .then(result => {
+        alert('✅ RESULT: ' + JSON.stringify(result));
+    })
+    .catch(error => {
+        alert('❌ ERROR: ' + error.message);
+    });
+}
+
+// Call this function manually or add a test button
         });
     }
 });
