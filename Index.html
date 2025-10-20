@@ -1333,6 +1333,100 @@ function getServiceSubtypeName(serviceType) {
     const serviceConfig = serviceOptions[serviceType];
     return serviceConfig ? serviceConfig.name : '';
 } 
+      
+// IMMEDIATE FORM FIX
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('form[name="booking-form"]');
+    
+    if (form) {
+        console.log('🚨 FORM FIX: Removing Netlify attributes and adding proper handler');
+        
+        // Completely remove all Netlify attributes
+        form.removeAttribute('netlify');
+        form.removeAttribute('data-netlify');
+        form.removeAttribute('netlify-honeypot');
+        form.setAttribute('id', 'booking-form');
+        
+        // Remove any hidden Netlify fields
+        const hiddenFields = form.querySelectorAll('input[type="hidden"]');
+        hiddenFields.forEach(field => field.remove());
+        
+        // Add our custom submit handler
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            e.stopImmediatePropagation();
+            
+            console.log('✅ Custom form handler triggered');
+            
+            // Collect form data
+            const formData = {
+                name: document.getElementById('name')?.value,
+                email: document.getElementById('email')?.value,
+                phone: document.getElementById('phone')?.value,
+                company: document.getElementById('company')?.value,
+                pickup: document.getElementById('pickup')?.value,
+                destination: document.getElementById('destination')?.value,
+                date: document.getElementById('date')?.value,
+                time: document.getElementById('time')?.value,
+                service: document.getElementById('service-type')?.value,
+                guests: document.getElementById('passengers')?.value,
+                message: document.getElementById('message')?.value,
+                service_subtype: document.getElementById('service-subtype-input')?.value || '',
+                addons: Array.from(document.querySelectorAll('input[type="checkbox"]:checked')).map(cb => cb.value)
+            };
+            
+            console.log('📦 Form data:', formData);
+            
+            try {
+                // Show loading state
+                const submitBtn = form.querySelector('button[type="submit"]');
+                const originalText = submitBtn.textContent;
+                submitBtn.textContent = 'Submitting...';
+                submitBtn.disabled = true;
+                
+                // Submit to Airtable
+                const response = await fetch('/.netlify/functions/airtable-booking', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                const result = await response.json();
+                console.log('📨 Server response:', result);
+                
+                if (result.success) {
+                    alert('✅ Booking submitted successfully! We will contact you soon.');
+                    form.reset();
+                    
+                    // Reset suboptions
+                    const suboptionsContainer = document.getElementById('service-suboptions');
+                    if (suboptionsContainer) {
+                        suboptionsContainer.classList.remove('active');
+                        suboptionsContainer.innerHTML = '';
+                    }
+                } else {
+                    throw new Error(result.error);
+                }
+                
+            } catch (error) {
+                console.error('❌ Error:', error);
+                alert('❌ Failed to submit booking: ' + error.message);
+            } finally {
+                // Reset button
+                const submitBtn = form.querySelector('button[type="submit"]');
+                if (submitBtn) {
+                    submitBtn.textContent = 'Submit Booking Request';
+                    submitBtn.disabled = false;
+                }
+            }
+        });
+        
+        console.log('✅ Form fix applied successfully');
+    }
+});
 </script>
 </body>
 </html>
