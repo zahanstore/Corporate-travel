@@ -19,7 +19,6 @@ exports.handler = async function(event, context) {
           'Status': 'Inquired',
           'Addons': formData.addons || [],
           'Special Requests': formData.message || 'No special requests',
-          'Total Amount': 0 // Add pricing logic later in table
         }
       }]
     };
